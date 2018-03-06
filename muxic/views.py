@@ -15,8 +15,8 @@ class AddAlbumView(TemplateView):
     template_name = 'muxic/add_album.html'
 
 
-# class UserView(TemplateView):
-#     template_name = 'muxic/user.html'
+class UserView(TemplateView):
+    template_name = 'muxic/user.html'
 
 
 class UserFormView(View):
