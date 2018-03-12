@@ -7,7 +7,9 @@ app_name = 'muxic'
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
-    path('register/', UserFormView.as_view(), name='register'),
+    path('register/', RegisterView.as_view(), name='register'),
     path('add_album/', AddAlbumView.as_view(), name='add_album'),
     path('user/', UserView.as_view(), name='user'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout')
 ]
