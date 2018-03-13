@@ -14,8 +14,7 @@ class RegisterForm(forms.ModelForm):
         max_length=254,
     )
     email = forms.CharField(
-        widget=forms.EmailInput,
-        max_length=254,
+        widget=forms.EmailInput
     )
     password = forms.CharField(
         widget=forms.PasswordInput,
@@ -59,9 +58,9 @@ class RegisterForm(forms.ModelForm):
     def clean_email(self):
         clean_data = super(RegisterForm, self).clean()
         email = clean_data.get('email')
-        if not validate_email(email):
-
-            raise forms.ValidationError("Email không hợp lệ!")
+        # if not validate_email(email):
+        #
+        #     raise forms.ValidationError("Email không hợp lệ!")
 
         try:
             User.objects.get(email=email)

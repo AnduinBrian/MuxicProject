@@ -11,5 +11,5 @@ urlpatterns = [
     path('add_album/', AddAlbumView.as_view(), name='add_album'),
     path('user/', UserView.as_view(), name='user'),
     path('login/', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout')
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
