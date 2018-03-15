@@ -8,20 +8,23 @@ from django.urls import reverse
 
 
 # Create your models here.
-class Profile(models.Model):
+class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
-    followers = models.DecimalField(max_digits=10, decimal_places=1, default=0)
-    following = models.DecimalField(max_digits=10, decimal_places=1, default=0)
+    followers = models.IntegerField(default=0)
+    followings = models.IntegerField(default=0)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
-            Profile.objects.create(user=instance)
+            UserProfile.objects.create(user=instance)
 
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
+    def __str__(self):
+        return self.user.username
+
+    # @receiver(post_save, sender=User)
+    # def save_user_profile(sender, instance, **kwargs):
+    #     instance.profile.save()
 
 
 class Album(models.Model):

@@ -38,11 +38,13 @@
                         <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>&nbsp; Bài hát
                     </a>
                 </li>
-                <li>
-                    <a href="{% url 'muxic:user' %}">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Trang cá nhân (test)
-                    </a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'muxic:user' user.username %}">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Trang cá nhân (test)
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
@@ -58,7 +60,7 @@
                 {#                </li>#}
                 {% if user.is_authenticated %}
                     <li>
-                        <a href="{% url 'muxic:user' %}"><span></span>{{ user.username }}</a>
+                        <a href="{% url 'muxic:user' user.username %}"><span></span>{{ user.username }}</a>
                     </li>
                     <li>
                         <a href="{% url 'muxic:logout' %}"><span

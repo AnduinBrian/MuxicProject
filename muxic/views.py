@@ -15,7 +15,7 @@ from django.conf import settings
 
 # Create your views here.
 from muxic.form import RegisterForm
-from muxic.models import Album
+from muxic.models import Album, UserProfile
 
 
 class IndexView(TemplateView):
@@ -26,12 +26,14 @@ class AddAlbumView(TemplateView):
     template_name = 'muxic/add_album.html'
 
 
-class UserView(TemplateView):
+class ProfileView(View):
     template_name = 'muxic/user.html'
 
-    def get(self, request, *args, **kwargs):
-        user = User.object.get(id=1)
-        return render(request, self.template_name, {'user': user})
+    # username = User.username;
+    def get(self, request, username):
+        user = User.objects.get(username=username)
+        user_profile = UserProfile.objects.get(user=user)
+        return render(request, self.template_name, {'user_profile': user_profile})
 
 
 class RegisterView(View):
@@ -75,7 +77,7 @@ class LoginView(FormView):
     form_class = AuthenticationForm
     redirect_field_name = REDIRECT_FIELD_NAME
     template_name = 'muxic/login.html'
-    success_url = '../../user'
+    success_url = '../../'
 
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
@@ -96,7 +98,7 @@ class LoginView(FormView):
         else:
             # redirect_to = self.request.REQUEST.get(self.redirect_field_name, '')
 
-            redirect_to = 'muxic/user.html'
+            redirect_to = 'muxic/index.html'
         # netloc = urlparse.urlparse(redirect_to)[1]
         # if not redirect_to:
         #     redirect_to = settings.LOGIN_REDIRECT_URL
