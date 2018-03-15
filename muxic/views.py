@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
@@ -14,6 +15,7 @@ from django.conf import settings
 
 # Create your views here.
 from muxic.form import RegisterForm
+from muxic.models import Album
 
 
 class IndexView(TemplateView):
@@ -26,6 +28,10 @@ class AddAlbumView(TemplateView):
 
 class UserView(TemplateView):
     template_name = 'muxic/user.html'
+
+    def get(self, request, *args, **kwargs):
+        user = User.object.get(id=1)
+        return render(request, self.template_name, {'user': user})
 
 
 class RegisterView(View):
@@ -138,3 +144,11 @@ class LogoutView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         logout(self.request)
         return super().get_redirect_url(*args, **kwargs)
+
+
+class AlbumView(TemplateView):
+    template_name = 'muxic/login.html'
+
+    def get(self, request, *args, **kwargs):
+        album = Album.objects.all()
+        return render(request, self.template_name, {'album': album})
