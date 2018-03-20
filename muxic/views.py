@@ -15,15 +15,15 @@ from django.conf import settings
 
 # Create your views here.
 from muxic.form import RegisterForm
-from muxic.models import Album, UserProfile
+from muxic.models import *
 
 
 class IndexView(TemplateView):
     template_name = 'muxic/index.html'
 
 
-class AddAlbumView(TemplateView):
-    template_name = 'muxic/add_album.html'
+# class AddAlbumView(TemplateView):
+#     template_name = 'muxic/add_album.html'
 
 
 class ProfileView(View):
@@ -148,9 +148,9 @@ class LogoutView(RedirectView):
         return super().get_redirect_url(*args, **kwargs)
 
 
-class AlbumView(TemplateView):
-    template_name = 'muxic/login.html'
-
-    def get(self, request, *args, **kwargs):
-        album = Album.objects.all()
-        return render(request, self.template_name, {'album': album})
+# class AlbumView(TemplateView):
+#     template_name = 'muxic/login.html'
+#
+#     def get(self, request, *args, **kwargs):
+#         album = Album.objects.all()
+#         return render(request, self.template_name, {'album': album})
