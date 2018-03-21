@@ -5,41 +5,44 @@
 {% block body %}
     <!-- phan dang ki -->
     <div class="container-fluid">
+
         <div class="row">
+
             <div class=" col-md-6" id="signupinfo">
                 <div class="col-md-12">
 
                     <form class="form-horizontal" method="POST" action="">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-md-3 control-label">Tên Đăng Nhập</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="inputID3" placeholder="Username"
-                                       style="width: 400px;">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail" class="col-md-3 control-label">Email</label>
-                            <div class="col-md-9">
-                                <input type="email" class="form-control" id="inputEmail" placeholder="Email"
-                                       style="width: 400px;">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-md-3 control-label">Mật Khẩu</label>
-                            <div class="col-md-9">
-                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password"
-                                       style="width: 400px;">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputRePassword3" class="col-md-3 control-label">Nhập Lại Mật Khẩu</label>
-                            <div class="col-md-9">
-                                <input type="password" class="form-control" id="inputRePassword3"
-                                       placeholder="Re-Password"
-                                       style="width: 400px;">
-                            </div>
-                        </div>
+                        {% include 'muxic/form_template.html' %}
+                        {#                        <div class="form-group">#}
+                        {#                            <label for="inputEmail3" class="col-md-3 control-label">Tên Đăng Nhập</label>#}
+                        {#                            <div class="col-md-9">#}
+                        {#                                <input type="text" class="form-control" id="inputID3" placeholder="Username"#}
+                        {#                                       style="width: 400px;">#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <div class="form-group">#}
+                        {#                            <label for="inputEmail" class="col-md-3 control-label">Email</label>#}
+                        {#                            <div class="col-md-9">#}
+                        {#                                <input type="email" class="form-control" id="inputEmail" placeholder="Email"#}
+                        {#                                       style="width: 400px;">#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <div class="form-group">#}
+                        {#                            <label for="inputPassword3" class="col-md-3 control-label">Mật Khẩu</label>#}
+                        {#                            <div class="col-md-9">#}
+                        {#                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password"#}
+                        {#                                       style="width: 400px;">#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <div class="form-group">#}
+                        {#                            <label for="inputRePassword3" class="col-md-3 control-label">Nhập Lại Mật Khẩu</label>#}
+                        {#                            <div class="col-md-9">#}
+                        {#                                <input type="password" class="form-control" id="inputRePassword3"#}
+                        {#                                       placeholder="Re-Password"#}
+                        {#                                       style="width: 400px;">#}
+                        {#                            </div>#}
+                        {#                </div>#}
                         <div class="form-group">
                             <div class="col-md-offset-9 col-md-3">
                                 <button type="submit" class="btn btn-success">Đăng ký</button>

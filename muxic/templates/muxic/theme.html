@@ -30,17 +30,7 @@
             <ul class="nav navbar-nav">
                 <li class="">
                     <a href="#">
-                        <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums
-                    </a>
-                </li>
-                <li class="">
-                    <a href="#">
                         <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>&nbsp; Bài hát
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'muxic:user' %}">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Trang cá nhân (test)
                     </a>
                 </li>
             </ul>
@@ -53,14 +43,25 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="{% url 'muxic:add_album' %}">
-                        <span class=" glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp; Thêm Album
+                        <span class=" glyphicon glyphicon-upload" aria-hidden="true"></span>&nbsp; Tải lên
                     </a>
                 </li>
-                <li>
-                    <a href="/" data-toggle="modal" data-target="#login-modal"><span
-                            class="glyphicon glyphicon-log-in"></span>&nbsp; Đăng nhập</a>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'muxic:user' user.username %}"><span></span>{{ user.username }}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'muxic:logout' %}"><span
+                                class="glyphicon glyphicon-off"></span>&nbsp; Đăng xuất</a>
+                    </li>
 
-                </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'muxic:login' %}"><span
+                                class="glyphicon glyphicon-log-in"></span>&nbsp; Đăng nhập</a>
+
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -72,14 +73,16 @@
     <div class="modal-dialog">
         <div class="loginmodal-container">
             <h1>Đăng nhập</h1><br>
-            <form>
-                <input type="text" name="user" placeholder="Tài khoản">
-                <input type="password" name="pass" placeholder="Mật khẩu">
-                <div class="checkbox">
-                    <label><input type="checkbox" name="remember"> Ghi nhớ</label>
-                </div>
+            <form method="post">
+                {% csrf_token %}
+                {#                            <input type="text" name="user" placeholder="Tài khoản">#}
+                {#                            <input type="password" name="pass" placeholder="Mật khẩu">#}
+                {#                            <div class="checkbox">#}
+                {#                                <label><input type="checkbox" name="remember"> Ghi nhớ</label>#}
+                {#                            </div>#}
                 <input type="submit" name="login" class="btn btn-lg btn-primary btn-block" value="Login">
             </form>
+
 
             <div class="login-help">
                 <a href="{% url 'muxic:register' %}">Đăng ký</a> - <a href="#">Quên mật khẩu?</a>
