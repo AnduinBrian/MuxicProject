@@ -35,7 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'muxic.apps.MuxicConfig'
+    'muxic.apps.MuxicConfig',
+    'rest_framework',
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
@@ -114,5 +116,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/muxic/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'muxic/media')
+MEDIA_URL = '/muxic/static/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'muxic/static/media')

@@ -130,3 +130,20 @@ body{
 	border-left: 0px;
 	border-style: solid;
 }
+
+#id_username{
+	width: 250px;
+	height: 30px;
+}
+#id_password{
+	width: 250px;
+	height: 30px;
+}
+#id_email{
+    width: 250px;
+	height: 30px;
+}
+#id_confirm_password{
+    width: 250px;
+	height: 30px;
+}

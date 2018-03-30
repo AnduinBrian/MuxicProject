@@ -27,7 +27,8 @@ class Song(models.Model):
     # album = models.ForeignKey(Album, on_delete=models.CASCADE)
     song_title = models.CharField(max_length=1000)
     artist = models.CharField(max_length=500)
-    song_logo = models.CharField(max_length=1000)
+    song_logo = models.ImageField(upload_to='logo_song', null=True)
+    song_file = models.FileField(upload_to='file_song', null=True)
     song_date_release = models.DateField(max_length=100, default=datetime.date.today)
 
     def __str__(self):
