@@ -14,7 +14,7 @@ class RegisterForm(forms.ModelForm):
         max_length=254,
     )
     email = forms.CharField(
-        widget=forms.EmailInput
+        widget=forms.EmailInput,
     )
     password = forms.CharField(
         widget=forms.PasswordInput,
@@ -27,17 +27,17 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password', 'confirm_password']
 
     def clean(self):
         clean_data = super(RegisterForm, self).clean()
         password = clean_data.get("password")
         confirm_password = clean_data.get("confirm_password")
-
         if len(password) < 6 and len(password) > 24:
             raise forms.ValidationError("Mật khẩu từ 6 đến 24 kí tự!")
-
-        if password != confirm_password:
+        elif password == confirm_password:
+            return password
+        else:
             raise forms.ValidationError("Mật khẩu bạn nhập không trùng!")
 
     def clean_username(self):
@@ -45,10 +45,8 @@ class RegisterForm(forms.ModelForm):
         username = clean_data.get('username')
         if not re.search(r'^\w+$', username):
             raise forms.ValidationError("Tên tài khoản có ký tự đặc biệt!")
-
-        if len(username) < 6 and len(username) > 24:
+        if  len(username) < 6 and len(username) > 24:
             raise forms.ValidationError("Tên tài khoản từ 6 đến 24 kí tự!")
-
         try:
             User.objects.get(username=username)
         except ObjectDoesNotExist:
@@ -61,11 +59,8 @@ class RegisterForm(forms.ModelForm):
         # if not validate_email(email):
         #
         #     raise forms.ValidationError("Email không hợp lệ!")
-
         try:
             User.objects.get(email=email)
         except ObjectDoesNotExist:
             return email
         raise forms.ValidationError("Email đã tồn tại")
-
-

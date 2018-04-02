@@ -100,7 +100,7 @@ body{
 	}
 }
 /* còn lại*/
-@media all and (min-width: 1366px;) {
+@media all and (min-width: 1366px;){
 		#Search{
 		width: 600px;
 	}
@@ -146,4 +146,37 @@ body{
 #id_confirm_password{
     width: 250px;
 	height: 30px;
+}
+
+
+/* FORM DEFAULTS */
+
+input, textarea, select, .form-row p, form .button {
+    margin: 5px 0;
+    padding: 2px 3px;
+    vertical-align: middle;
+    /*font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;*/
+    font-weight: normal;
+    font-size: 13px;
+}
+.form-row div.help {
+    padding: 2px 3px;
+}
+
+textarea {
+    vertical-align: top;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=url],
+input[type=number], input[type=tel], textarea, select, .vTextField {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 6px;
+    margin-top: 0;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus,
+input[type=url]:focus, input[type=number]:focus, input[type=tel]:focus,
+textarea:focus, select:focus, .vTextField:focus {
+    border-color: #999;
 }
