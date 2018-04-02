@@ -77,6 +77,7 @@ class LoginView(FormView):
     form_class = AuthenticationForm
     redirect_field_name = REDIRECT_FIELD_NAME
     template_name = 'muxic/login.html'
+    # template_name = 'muxic/theme.html'
     success_url = '../../'
 
     @method_decorator(csrf_protect)

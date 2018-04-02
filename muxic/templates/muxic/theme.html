@@ -41,12 +41,12 @@
                 <button type="submit" class="btn btn-default"><span class=" glyphicon glyphicon-search"></span></button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="{% url 'muxic:add_album' %}">
-                        <span class=" glyphicon glyphicon-upload" aria-hidden="true"></span>&nbsp; Tải lên
-                    </a>
-                </li>
                 {% if user.is_authenticated %}
+                    <li>
+                        <a href="#upload">
+                            <span class=" glyphicon glyphicon-upload" aria-hidden="true"></span>&nbsp; Tải lên
+                        </a>
+                    </li>
                     <li>
                         <a href="{% url 'muxic:user' user.username %}"><span></span>{{ user.username }}</a>
                     </li>
@@ -54,42 +54,61 @@
                         <a href="{% url 'muxic:logout' %}"><span
                                 class="glyphicon glyphicon-off"></span>&nbsp; Đăng xuất</a>
                     </li>
-
                 {% else %}
                     <li>
-                        <a href="{% url 'muxic:login' %}"><span
-                                class="glyphicon glyphicon-log-in"></span>&nbsp; Đăng nhập</a>
-
-                    </li>
+		                <a href="{% url 'muxic:login' %}"><span class=" glyphicon glyphicon-upload"></span>&nbsp; Tải lên</a>
+		            </li>
+                    <li>
+		                <a href="{% url 'muxic:login' %}"><span class="glyphicon glyphicon-log-in" ></span>&nbsp; Đăng nhập</a>
+		            </li>
                 {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- popup đăng nhập -->
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-     style="display: none;">
-    <div class="modal-dialog">
-        <div class="loginmodal-container">
-            <h1>Đăng nhập</h1><br>
-            <form method="post">
-                {% csrf_token %}
-                {#                            <input type="text" name="user" placeholder="Tài khoản">#}
-                {#                            <input type="password" name="pass" placeholder="Mật khẩu">#}
-                {#                            <div class="checkbox">#}
-                {#                                <label><input type="checkbox" name="remember"> Ghi nhớ</label>#}
-                {#                            </div>#}
-                <input type="submit" name="login" class="btn btn-lg btn-primary btn-block" value="Login">
-            </form>
-
-
-            <div class="login-help">
-                <a href="{% url 'muxic:register' %}">Đăng ký</a> - <a href="#">Quên mật khẩu?</a>
-            </div>
-        </div>
-    </div>
-</div>
+{#<!-- popup đăng nhập -->#}
+{#<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">#}
+{#    <div class="modal-dialog">#}
+{#        <div class="loginmodal-container">#}
+{#            <h1>Đăng nhập</h1><br>#}
+{#            <form class="modal-content" id="login-form" method="post" style="text-align: center">#}
+{#                {% csrf_token %}#}
+{#                {% for key, value in form.error.item %}{{ value }}{% endfor %}#}
+{#                                            <input type="text" name="user" placeholder="Tài khoản">#}
+{#                                            <input type="password" name="pass" placeholder="Mật khẩu">#}
+{#                                            <div class="checkbox">#}
+{#                                                <label><input type="checkbox" name="remember"> Ghi nhớ</label>#}
+{#                                            </div>#}
+{#                <input type="submit" name="login" class="btn btn-lg btn-primary btn-block" value="Login">#}
+{#                <div class="form-row">#}
+{#                    <label class="required" for="id_username">Username:&nbsp;</label>{{ form.username }}#}
+{#                </div>#}
+{#                <div class="form-row">#}
+{#                    <label class="required" for="id_username">Password:&nbsp;</label>{{ form.password }}#}
+{#                </div>#}
+{#                <input type="hidden" name="next" value="/"/>#}
+{#                <div class="row">#}
+{#                    <div class=" col-sm-offset-4 col-sm-4">#}
+{#                        <div class="form-group" >#}
+{#                            <div class="login-help"s>#}
+{#                                <a href="{% url 'muxic:register' %}">Đăng ký</a> - <a href="#">Quên mật khẩu?</a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-sm-4">#}
+{#                         <div style="text-align: left">#}
+{#                                <button type="submit" class="btn btn-success">Đăng nhập</button>#}
+{#                         </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </form>#}
+{#            <div class="login-help">#}
+{#                <a href="{% url 'muxic:register' %}">Đăng ký</a> - <a href="#">Quên mật khẩu?</a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 {% block body %}
 {% endblock %}
 </body>
