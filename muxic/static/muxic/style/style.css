@@ -1,7 +1,7 @@
 body {
     background: white url("../images/background.png");
     font-family: 'Roboto', sans-serif;
-    margin-top: 70px;
+    margin-top: 60px;
     max-height: 1500px;
     padding: 0px;
     margin-bottom: 0px;
@@ -187,4 +187,73 @@ footer .form-control {
 
 #footer_icon li {
     display: inline;
+}
+
+#LeftMenu {
+    padding-bottom: 0px;
+    border-top: 0px;
+    border-right: 3px;
+    border-left: 0px;
+    border-bottom: 0px;
+    border-style: solid;
+    height: 1200px;
+    overflow: hidden;
+
+}
+
+.itemAbout {
+    border-right: 3px;
+    border-style: solid;
+    border-width: 3px;
+}
+
+#signupinfo {
+    border-right: 3px;
+    border-bottom: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-style: solid;
+}
+
+#search input[type="text"] {
+    background: url(../images/searchwhite.png) no-repeat 5px 2px #444;
+    border: 0 none;
+    font: bold 12px Arial, Helvetica, Sans-serif;
+    color: #d7d7d7;
+    width: 400px;
+    padding: 11px 30px 6px 40px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+}
+
+#search input[type="text"]:focus {
+    background: url(../images/searchblue.png) no-repeat 5px 2px #fcfcfc;
+    color: #6a6f75;
+    width: 600px;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9) inset;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .dropdown-menu {
+    color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: #000000;
+}
+
+.table-borderless td,
+.table-borderless th {
+    border: 0;
 }

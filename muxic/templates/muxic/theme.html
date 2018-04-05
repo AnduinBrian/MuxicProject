@@ -36,25 +36,23 @@
                     </a>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="q" placeholder="Tìm kiếm" value="">
-                </div>
-                <button type="submit" class="btn btn-default"><span class=" glyphicon glyphicon-search"></span></button>
+            <form class="navbar-form navbar-left" id="search" method="get" action="{% url 'muxic:search' %}">
+                <input name="q" type="text" size="40" placeholder="Bạn tìm gì?"/>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'muxic:add_song' %}">
-                            <span class=" glyphicon glyphicon-upload" aria-hidden="true"></span>&nbsp; Tải lên
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'muxic:user' user.username %}"><span></span>{{ user.username }}</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'muxic:logout' %}"><span
-                                class="glyphicon glyphicon-off"></span>&nbsp; Đăng xuất</a>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" style="height: 50px;margin-top: -10px"><img
+                                class="img-circle" src="{% static 'muxic/images/profile.png' %}" style="height: 40px">&nbsp;&nbsp;<span>{{ user.username }}</span><span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu" style="margin-top: 10px;color: white;background: #222222">
+                            <li><a href="{% url 'muxic:user' user.username %}">Trang cá nhân</a></li>
+                            <li><a href="#">item 1</a></li>
+                            <li><a href="#">item 2</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'muxic:logout' %}"><span class="glyphicon glyphicon-off"></span>Đăng
+                                xuất</a></li>
+                        </ul>
                     </li>
                 {% else %}
                     <li>

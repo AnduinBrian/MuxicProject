@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
@@ -41,6 +42,7 @@ class ProfileView(View):
     template_name = 'muxic/user.html'
 
     username = User.username;
+
     def get(self, request, username):
         user = User.objects.get(username=username)
         user_profile = UserProfile.objects.get(user=user)
@@ -158,6 +160,38 @@ class LogoutView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         logout(self.request)
         return super().get_redirect_url(*args, **kwargs)
+
+
+class Search(ListView):
+    template_name = 'muxic/search.html'
+
+    def get(self, request):
+
+        queryset_list = Song.objects.all().order_by("-date_release")
+        query = request.GET.get("q")
+        if query:
+            queryset_list = queryset_list.filter(
+                Q(title__icontains=query)
+                # Q(artist__icontains=query)
+            ).distinct()
+            # paginator = Paginator(queryset_list, 5)
+            # page_request_var = 'page'
+            # page = request.GET.get(page_request_var)
+            # try:
+            #     queryset = paginator.page(page)
+            # except PageNotAnInteger:
+            #     queryset = paginator.page(1)
+            # except EmptyPage:
+            #     queryset = paginator.page(paginator.num_pages)
+            #
+            # context = {
+            #     "queryset_list": queryset,
+            #     "title":"list",
+            #     "page_request_var": page_request_var
+            # }
+            return render(request, self.template_name, {'queryset_list': queryset_list})
+        else:
+            return render(request, self.template_name, )
 
 
 class SongCreate(CreateView):

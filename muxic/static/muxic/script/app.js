@@ -1,24 +1,41 @@
-
-  $(document).ready(function() {
+$(document).ready(function () {
     $('.carousel').carousel({
-      interval: 6000
+        interval: 6000
     })
-  });
+});
 
-  $(document).ready(function(){
+$(document).ready(function () {
     //Handles menu drop down
     $('.dropdown-menu').find('form').click(function (e) {
         e.stopPropagation();
     });
+    $(function () {
+        var Accordion = function (el, multiple) {
+            this.el = el || {};
+            // more then one submenu open?
+            this.multiple = multiple || false;
+
+            var dropdownlink = this.el.find('.dropdownlink');
+            dropdownlink.on('click',
+                {el: this.el, multiple: this.multiple},
+                this.dropdown);
+        };
+
+        Accordion.prototype.dropdown = function (e) {
+            var $el = e.data.el,
+                $this = $(this),
+                //this is the ul.submenuItems
+                $next = $this.next();
+
+            $next.slideToggle();
+            $this.parent().toggleClass('open');
+
+            if (!e.data.multiple) {
+                //show only one menu at the same time
+                $el.find('.submenuItems').not($next).slideUp().parent().removeClass('open');
+            }
+        }
+
+        var accordion = new Accordion($('.accordion-menu'), false);
+    })
 });
-  $('#id_username')
-
-  // Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
