@@ -36,8 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'muxic.apps.MuxicConfig',
-    'rest_framework',
-    'django_cleanup',
 ]
 
 MIDDLEWARE = [

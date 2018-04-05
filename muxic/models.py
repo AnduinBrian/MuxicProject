@@ -6,6 +6,15 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 
+GENRE_CHOICE = (
+    ('Rap_Hip Hop', 'rap_hip hop'),
+    ('R&B', 'r&b'),
+    ('Ballad', 'ballad'),
+    ('EDM', 'edm'),
+    ('Country', 'country'),
+    ('etc', 'ETC'),
+)
+
 
 # Create your models here.
 class UserProfile(models.Model):
@@ -25,11 +34,12 @@ class UserProfile(models.Model):
 
 class Song(models.Model):
     # album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    song_title = models.CharField(max_length=1000)
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=1000)
     artist = models.CharField(max_length=500)
-    song_logo = models.ImageField(upload_to='logo_song', null=True)
-    song_file = models.FileField(upload_to='file_song', null=True)
-    song_date_release = models.DateField(max_length=100, default=datetime.date.today)
+    logo = models.ImageField(upload_to='logosong', null=True)
+    date_release = models.DateField(max_length=100, default=datetime.date.today)
+    file = models.FileField(upload_to='filesong', null=True)
 
     def __str__(self):
-        return self.artist + ' - ' + self.song_title
+        return self.artist + ' - ' + self.title
