@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% load staticfiles %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'muxic/style/bootstrap.min.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'muxic/script/bootstrap.min.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'muxic/style/style.css' %}">
     <script src="{% static 'muxic/script/app.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'muxic/style/SongDetail.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'muxic/style/login.css' %}">
+    <script src="{% static 'muxic/script/SongDetail.js' %}"></script>
 </head>
 <body>
 <!-- thanh menu top -->
@@ -43,7 +45,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                     <li>
-                        <a href="#upload">
+                        <a href="{% url 'muxic:add_song' %}">
                             <span class=" glyphicon glyphicon-upload" aria-hidden="true"></span>&nbsp; Tải lên
                         </a>
                     </li>
@@ -56,11 +58,13 @@
                     </li>
                 {% else %}
                     <li>
-		                <a href="{% url 'muxic:login' %}"><span class=" glyphicon glyphicon-upload"></span>&nbsp; Tải lên</a>
-		            </li>
+                        <a href="{% url 'muxic:login' %}"><span class=" glyphicon glyphicon-upload"></span>&nbsp; Tải
+                            lên</a>
+                    </li>
                     <li>
-		                <a href="{% url 'muxic:login' %}"><span class="glyphicon glyphicon-log-in" ></span>&nbsp; Đăng nhập</a>
-		            </li>
+                        <a href="{% url 'muxic:login' %}"><span class="glyphicon glyphicon-log-in"></span>&nbsp; Đăng
+                            nhập</a>
+                    </li>
                 {% endif %}
             </ul>
         </div>
@@ -111,5 +115,42 @@
 {#</div>#}
 {% block body %}
 {% endblock %}
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-3">
+                <h4 style="text-align: center">Địa chỉ liên lạc: </h4>
+                <hr>
+                <ul>
+                    <li style="text-align: left ">Tòa nhà X, Khu phố Y, TP. Thanh Hóa, Thanh Hóa</li>
+                </ul>
+            </div>
+            <div class="col-md-offset-4 col-md-4">
+                <h4 style="text-align: center">Kết nối với chúng tôi</h4>
+                <hr>
+                <ul id="footer_icon">
+                    <li style="margin-left: -50px"><a href="#"><img src="{% static 'muxic/images/icon1.png' %}"
+                                                                    style="width: 50px;height: 50px"></a></li>
+                    <li style="margin-left: 30%"><a href="#"><img src="{% static 'muxic/images/icon2.png' %}"
+                                                                  style="width: 55px;height: 55 px"></a></li>
+                    <li style="margin-left: 30%;"><a href="#"><img src="{% static 'muxic/images/icon3.png' %}"
+                                                                   style="width: 50px;height: 50px"></a></li>
+                </ul>
+                <br>
+                <br>
+                <br>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+
+        <div class="col-md-12" id="CopyRight" style="margin-top: -10px">
+            <p style="text-align: center"> &copy; Copyright by: AL-Team</p>
+        </div>
+    </div>
+
+</footer>
 </body>
 </html>

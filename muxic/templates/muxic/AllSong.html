@@ -1,0 +1,9 @@
+{% extends 'muxic/theme.html' %}
+{% block title %} MuXic {% endblock title %}
+{% load staticfiles %}
+
+{% block body %}
+    {% for s in object_list %}
+        <a href="{% url 'muxic:songdetail' s.id %}"> {{ s }}</a><br>
+    {% endfor %}
+{% endblock %}

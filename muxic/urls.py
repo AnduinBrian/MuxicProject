@@ -12,4 +12,7 @@ urlpatterns = [
     path('user/<str:username>', ProfileView.as_view(), name='user'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('add/', SongCreate.as_view(), name='add_song'),
+    path('song/<int:id>', SongDetail.as_view(), name='songdetail'),
+    path('all_song/', AllSong.as_view(), name='allsong'),
 ]

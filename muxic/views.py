@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, CreateView, FormView, RedirectView
+from django.views.generic import TemplateView, CreateView, FormView, RedirectView, ListView, DetailView
 from django.views.generic.base import View
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
 from django.utils.http import is_safe_url
@@ -22,14 +22,25 @@ class IndexView(TemplateView):
     template_name = 'muxic/index.html'
 
 
-# class AddAlbumView(TemplateView):
-#     template_name = 'muxic/add_album.html'
+class AllSong(ListView):
+    template_name = 'muxic/AllSong.html'
+
+    def get_queryset(self):
+        return Song.objects.all()
+
+
+class SongDetail(DetailView):
+    template_name = 'muxic/SongDetail.html'
+
+    def get(self, request, id, **kwargs):
+        song_title = Song.objects.get(id=id)
+        return render(request, self.template_name, {'detSong': song_title})
 
 
 class ProfileView(View):
     template_name = 'muxic/user.html'
 
-    # username = User.username;
+    username = User.username;
     def get(self, request, username):
         user = User.objects.get(username=username)
         user_profile = UserProfile.objects.get(user=user)
@@ -149,9 +160,7 @@ class LogoutView(RedirectView):
         return super().get_redirect_url(*args, **kwargs)
 
 
-# class AlbumView(TemplateView):
-#     template_name = 'muxic/login.html'
-#
-#     def get(self, request, *args, **kwargs):
-#         album = Album.objects.all()
-#         return render(request, self.template_name, {'album': album})
+class SongCreate(CreateView):
+    model = Song
+    template_name = 'muxic/add_album.html'
+    fields = ['title', 'artist', 'logo', 'file', 'date_release']
