@@ -51,356 +51,76 @@
     <!-- ảnh trên web login -->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3" id="LeftMenu">
+            <div class="col-md-3" id="LeftMenu" style="background-color: #e7e7e7;">
                 <div class="row">
                     <div class="col-md-12">
-                        <img class="img-circle" src="{% static 'muxic/images/profile.png' %}"
-                             style="margin-left: 50px;margin-right: 50px;">
+                        <img class="img-circle" src="{% static 'muxic/images/profile.png' %}   "
+                             style="margin-left: 75px">
                     </div>
                     <div class="col-md-12">
                         <ul class="nav nav-tabs nav-stacked">
-                            <li role="presentation" class="col-md-12 control-label">Tài
-                                khoản: {{ user_profile.user.username }}</li>
+                            <li role="presentation" class="col-md-12 control-label" style="text-align: center"><h3>
+                                <strong> {{ user_profile.user.username }}</strong></h3></li>
+                            <li role="presentation" class="col-md-12 control-label"
+                                style="margin-left: 17px;color: #357ae8 ">
+                                <strong>Email: </strong> {{ user_profile.user.email }} </li>
+                            <li role="presentation" class="col-md-12">
+                                <a href="#"><strong> Người theo dõi: </strong> <span
+                                        class="badge"> {{ user_profile.followers }}</span></a>
+                            </li>
                             <li role="presentation" class="col-md-12 control-label">
-                                Email: {{ user_profile.user.email }}</li>
-                            <li role="presentation" class="col-md-12 control-label">
-                                Người theo dõi: {{ user_profile.followers }}</li>
-                            <li role="presentation" class="col-md-12 control-label">
-                                Người đang theo dõi: {{ user_profile.followings }}</li>
+                                <a href="#"><strong> Người đang theo dõi: </strong> <span
+                                        class="badge"> {{ user_profile.followings }}</span></a>
                             <li role="presentation" class="col-md-12 control-label">
                                 <blockquote>{{ user_profile.bio }}</blockquote>
-                        </li>
+                            </li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="container-fluid">
-                    <div class='row'>
-                        <div class="col-md-12">
-                            <h2>US - UK</h2>
-                        </div>
-                        <div class='col-md-12'>
-                            <div class="carousel slide media-carousel" id="media1">
-                                <div class="carousel-inner">
-                                    <div class="item  active">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <div class="caption">
-                                                    <h4>Tên Album: </h4>
-                                                    <p>Ca sĩ: </p>
-                                                    <a href="#"> Chi tiết</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                        </div>
+                        <div class="col-md-12  ">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span
+                                                    class="glyphicon ">
+                                                </span><strong>Yêu thích</strong></a>
+                                        </h4>
                                     </div>
-                                    <div class="item">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <tr>
+                                                    <td>
+                                                        <span class="glyphicon "></span><a href="#">Playlist</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="glyphicon text-success"></span><a href="#">Bài
+                                                        hát</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
-                                <a class="left carousel-control" href="#media1" data-slide="prev"><i
-                                        class="glyphicon glyphicon-chevron-left"></i></a>
-                                <a class="right carousel-control" href="#media1" data-slide="next"><i
-                                        class="glyphicon glyphicon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <h2>Việt Nam</h2>
-                        </div>
-                        <div class='col-md-12'>
-                            <div class="carousel slide media-carousel" id="media2">
-                                <div class="carousel-inner">
-                                    <div class="item  active">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                        </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span
+                                                    class="glyphicon ">
+                                                </span><strong>nhạc upload</strong></a>
+                                        </h4>
                                     </div>
                                 </div>
-                                <a class="left carousel-control" href="#media2" data-slide="prev"><i
-                                        class="glyphicon glyphicon-chevron-left"></i></a>
-                                <a class="right carousel-control" href="#media2" data-slide="next"><i
-                                        class="glyphicon glyphicon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <h2>Kpop</h2>
-                        </div>
-                        <div class='col-md-12'>
-                            <div class="carousel slide media-carousel" id="media3">
-                                <div class="carousel-inner">
-                                    <div class="item  active">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a class="thumbnail" href="#"><img alt=""
-                                                                                   src="http://placehold.it/360x240"></a>
-                                                <h4>Tên Album: </h4>
-                                                <p>Ca sĩ: </p>
-                                                <a href="#"> Chi tiết</a>
-                                            </div>
-                                        </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion"
+                                               href="#collapseThree"><span class="glyphicon">
+                                                </span><strong>Kênh của tôi</strong></a>
+                                        </h4>
                                     </div>
                                 </div>
-                                <a class="left carousel-control" href="#media3" data-slide="prev"><i
-                                        class="glyphicon glyphicon-chevron-left"></i></a>
-                                <a class="right carousel-control" href="#media3" data-slide="next"><i
-                                        class="glyphicon glyphicon-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -408,30 +128,6 @@
             </div>
         </div>
     </div>
-    <footer class="page-footer blue center-on-small-only">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-8 align-middle" style="text-align: center;">
-                    <img src="{% static 'muxic/images/logo.png' %}" id="btmlogo">
-                </div>
-                <div class="col-md-4" style="text-align: left;">
-                    <h4 class="title">Kết nối với chung tôi</h4>
-                    <ul id="btmlist align-middle">
-                        <li><a href="#"> <img src="{% static 'muxic/images/icon1.png' %}" width="40px"> &nbsp; Facebook
-                        </a></li>
-                        <li><a href="#"> <img src="{% static 'muxic/images/icon2.png' %}" width="40px"> &nbsp; Google+
-                        </a></li>
-                        <li><a href="#"> <img src="{% static 'muxic/images/icon3.png' %}" width="40px"> &nbsp; Twitter
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--Copyright-->
-        <div class="footer-copyright" style="text-align: center;">
-            <div class="container-fluid">
-                &copy; 2018 Copyright: ALT </a>
-            </div>
-        </div>
-    </footer>
+    </div>
+
 {% endblock body %}

@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="">
-                    <a href="#">
+                    <a href="{% url 'muxic:allsong' %}">
                         <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>&nbsp; Bài hát
                     </a>
                 </li>
@@ -41,6 +41,10 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'muxic:add_song' %}"><span class=" glyphicon glyphicon-upload"></span>&nbsp; Tải
+                            lên</a>
+                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" style="height: 50px;margin-top: -10px"><img
                                 class="img-circle" src="{% static 'muxic/images/profile.png' %}" style="height: 40px">&nbsp;&nbsp;<span>{{ user.username }}</span><span

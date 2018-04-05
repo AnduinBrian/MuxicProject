@@ -24,14 +24,14 @@ class IndexView(TemplateView):
 
 
 class AllSong(ListView):
-    template_name = 'muxic/AllSong.html'
+    template_name = 'muxic/all_song.html'
 
     def get_queryset(self):
         return Song.objects.all()
 
 
 class SongDetail(DetailView):
-    template_name = 'muxic/SongDetail.html'
+    template_name = 'muxic/song_detail.html'
 
     def get(self, request, id, **kwargs):
         song_title = Song.objects.get(id=id)

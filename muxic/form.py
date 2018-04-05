@@ -45,7 +45,7 @@ class RegisterForm(forms.ModelForm):
         username = clean_data.get('username')
         if not re.search(r'^\w+$', username):
             raise forms.ValidationError("Tên tài khoản có ký tự đặc biệt!")
-        if  len(username) < 6 and len(username) > 24:
+        if len(username) < 6 and len(username) > 24:
             raise forms.ValidationError("Tên tài khoản từ 6 đến 24 kí tự!")
         try:
             User.objects.get(username=username)
