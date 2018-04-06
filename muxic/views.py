@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.conf import settings
 
 # Create your views here.
-from muxic.form import RegisterForm
+from muxic.form import UserForm
 from muxic.models import *
 
 
@@ -41,7 +41,7 @@ class SongDetail(DetailView):
 class ProfileView(View):
     template_name = 'muxic/user.html'
 
-    username = User.username;
+    # username = User.username
 
     def get(self, request, username):
         user = User.objects.get(username=username)
@@ -50,7 +50,7 @@ class ProfileView(View):
 
 
 class RegisterView(View):
-    form_class = RegisterForm
+    form_class = UserForm
     template_name = 'muxic/registration_form.html'
 
     # Display blank form
