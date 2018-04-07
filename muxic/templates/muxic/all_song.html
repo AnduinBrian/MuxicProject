@@ -17,8 +17,7 @@
                     <tbody>
                         {% for s in object_list %}
                             <tr>
-                                <td class="col-md-3"><a href="{% url 'muxic:songdetail' s.id %}">{{ s.title }}</a>
-                                </td>
+                                <td class="col-md-3"><a href="{% url 'muxic:songdetail' s.id %}">{{ s.title }}</a></td>
                                 <td class="col-md-3">{{ s.artist }}</td>
                                 <td class="col-md-3">{{ s.date_release }}</td>
                             </tr>
