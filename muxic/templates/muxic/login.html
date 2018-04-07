@@ -1,6 +1,6 @@
 {% extends 'muxic/index.html' %}
 {% block login %}
-    <form class="form-row" id="login-form" method="post" style="text-align: center">
+    <form class="form-group" id="login-form" method="post" style="text-align: center">
         {% csrf_token %}
         {#    {% for field in form %}#}
         {#        <div class="form-group">#}
@@ -16,15 +16,15 @@
         {#        </div>#}
         {#    {% endfor %}#}
         {% for key, value in form.error.item %}{{ value }}{% endfor %}
-        <div class="form-row">
+        <div class="form-group">
             <label class="required" for="id_username">Username:&nbsp;</label>{{ form.username }}
         </div>
-        <div class="form-row">
+        <div class="form-group">
             <label class="required" for="id_password">Password:&nbsp;</label>{{ form.password }}
         </div>
         {#    <p><label>Username:&nbsp;</label>{{ form.username }}</p>#}
         {#    <p><label>Password:&nbsp;</label>{{ form.password }}</p>#}
-        <input type="hidden" name="next" value="/"/>
+        <input type="hidden" name="next" value="/"/><br>
         <div class="row">
             <div class=" col-sm-offset-4 col-sm-4">
                 <div class="form-group">

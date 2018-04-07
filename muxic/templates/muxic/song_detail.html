@@ -6,20 +6,20 @@
     <div class="container">
         <div class="row" id="TopDetail">
             <div class="col-md-9">
-                <h1>Thông tin bài hát </h1>
-                <h3 style="margin-left: 5%">Tên bài hát: {{ detSong.title }}</h3>
-                <h3 style="margin-left: 5%">Nghệ sĩ: {{ detSong.artist }}</h3>
+{#                <h1>Thông tin bài hát </h1>#}
+                <h3 style="margin-left: 5%; color: #ffffff">{{ detSong.title }} - {{ detSong.artist }}</h3>
+{#                <h3 style="margin-left: 5%">Tên bài hát: Nghệ sĩ: </h3>#}
                 {#                    <div id="mp3_player" class="col-md-12">#}
                 {#	                    <canvas id="analyser_render"></canvas>#}
                 {#	                        <div id="audio_box"></div>#}
                 {#                    </div>#}
             </div>
-            <div class="col-md-3"><br>
-                <div class="col-md-12">
-                    <img src="{{ detSong.logo.url }}" alt="Hình Album/user upload/ca sĩ"
-                         style="width: 100%; height: 100%">
-                </div>
-            </div>
+{#            <div class="col-md-3"><br>#}
+{#                <div class="col-md-12">#}
+{#                    <img src="{{ detSong.logo.url }}" alt="Hình Album/user upload/ca sĩ"#}
+{#                         style="width: 250px; height: 250px">#}
+{#                </div>#}
+{#            </div>#}
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
@@ -28,26 +28,26 @@
                             <div id="audio_box"></div>
                         </div>
                     </div>
-                    {#                    <div class="col-md-3" style="margin-top: 55px">#}
-                    {#                        <a href="#"><span class="glyphicon glyphicon-fast-backward" id="BtnPrev"></span></a>#}
-                    {#                        <a href="#"><span class="glyphicon glyphicon-fast-forward" id="BtnNext"></span></a>#}
-                    {#                    </div>#}
+{#                                        <div class="col-md-3" style="margin-top: 55px">#}
+{#                                            <a href="#"><span class="glyphicon glyphicon-fast-backward" id="BtnPrev"></span></a>#}
+{#                                            <a href="#"><span class="glyphicon glyphicon-fast-forward" id="BtnNext"></span></a>#}
+{#                                        </div>#}
                 </div>
             </div>
 
         </div>
 
         <div class="panel panel-body" id="Bottom">
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="CMT" placeholder="Viết một bình luận...">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-default">Gửi bình luận</button>
-                </div>
-            </div>
+{#            <div class="row">#}
+{#                <div class="col-md-10">#}
+{#                    <div class="form-group">#}
+{#                        <input type="text" class="form-control" id="CMT" placeholder="Viết một bình luận...">#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-2">#}
+{#                    <button type="button" class="btn btn-default">Gửi bình luận</button>#}
+{#                </div>#}
+{#            </div>#}
             <br>
             <div class="col-md-12">
                 <div class="row">

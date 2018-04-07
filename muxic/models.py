@@ -34,7 +34,7 @@ class UserProfile(models.Model):
 
 class Song(models.Model):
     # album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    id = models.AutoField(primary_key=True)
+    # id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=1000)
     artist = models.CharField(max_length=500)
     logo = models.ImageField(upload_to='logosong', null=True)
