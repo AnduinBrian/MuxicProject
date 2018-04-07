@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
@@ -196,7 +197,7 @@ class Search(ListView):
 class SongCreate(CreateView):
     # form_class = CreateSongForm
     model = Song
-    template_name = 'muxic/song_form.html'
+    template_name = 'muxic/add_album.html'
     fields = ['title', 'artist', 'logo', 'file', 'date_release', 'lyric']
 
     def get_form(self):

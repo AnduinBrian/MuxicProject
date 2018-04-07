@@ -2,22 +2,24 @@
 {% block title %} Tải lên {% endblock title %}
 {% load staticfiles %}
 {% block body %}
-    <div class="container-fluid">
+
+    <div class="container-fluid" style="font-size: 15px" id="add_album">
+    <br>
         <div class="row">
-            <div class="col-sm-12 col-md-7">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+            <div class="col-sm-12 col-md-7" style="">
+{#                <div class="panel">#}
+{#                    <div class="panel-body">#}
+                        <form class="form-group" action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {% include 'muxic/form_template.html' %}
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
+                                <div class="col-sm-offset-10 col-sm-10">
                                     <button type="submit" class="btn btn-success">Tải lên</button>
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
+{#                    </div>#}
+{#                </div>#}
             </div>
         </div>
     </div>
