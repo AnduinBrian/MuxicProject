@@ -6,6 +6,9 @@ import re
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import validate_email
 from django.utils.text import capfirst
+from django.views.generic import CreateView
+
+from muxic.models import Song
 
 
 class RegisterForm(forms.ModelForm):
@@ -64,3 +67,17 @@ class RegisterForm(forms.ModelForm):
         except ObjectDoesNotExist:
             return email
         raise forms.ValidationError("Email đã tồn tại")
+
+
+# class CreateSongForm(forms.ModelForm):
+#     class Meta:
+#         model = Song
+#         fields = ['title', 'artist', 'logo', 'file', 'date_release', 'lyric']
+#         widgets = {
+#             'date_release': forms.DateInput
+#         }
+#
+#
+# class CreateSong(CreateView):
+#     form_class = CreateSongForm
+#     model = Song
