@@ -40,6 +40,10 @@ class Song(models.Model):
     logo = models.ImageField(upload_to='logosong', null=True)
     date_release = models.DateField(max_length=100, default=datetime.date.today)
     file = models.FileField(upload_to='filesong', null=True)
+    lyric = models.TextField(max_length=10000, null=True)
+
+    def get_absolute_url(self):
+        return reverse('muxic:songdetail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.artist + ' - ' + self.title
