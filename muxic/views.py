@@ -55,9 +55,9 @@ class RegisterView(View):
 
     # Display blank form
     def get(self, request):
-        if request.method != 'POST':
-            form = self.form_class(None)
-            return render(request, self.template_name, {'form': form})
+        form = self.form_class(None)
+        print(form)
+        return render(request, self.template_name, {'form': form})
 
     # Process form data
     def post(self, request):
@@ -65,7 +65,6 @@ class RegisterView(View):
 
         if form.is_valid():
             user = form.save(commit=False)
-
             # Clean data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']

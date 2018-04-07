@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UsernameField, UserModel
 from django.contrib.auth.models import *
 from django import forms
 import re
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.validators import validate_email
 from django.utils.text import capfirst
 
@@ -29,27 +29,49 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ('username', 'email', 'password', 'confirm_password')
 
-    def clean(self):
-        clean_data = super(UserForm, self).clean()
-        password = clean_data.get("password")
-        confirm_password = clean_data.get("confirm_password")
-        if 6 > len(password) > 24:
+    def clean_confirm_password(self):
+        cleaned_data = super(UserForm, self).clean()
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+        if len(password) < 6:
+            print("check1")
             raise forms.ValidationError("Mật khẩu từ 6 đến 24 kí tự!")
 
-        if password != confirm_password:
+        elif len(password) > 24:
+            print("check2")
+            raise forms.ValidationError("Mật khẩu từ 6 đến 24 kí tự!")
+
+        elif password != confirm_password:
             raise forms.ValidationError("Mật khẩu bạn nhập không trùng!")
+            # raise ValidationError("Mật khẩu bạn nhập không trùng!")
         else:
-            return clean_data
+            return confirm_password
+
+    # def clean_password(self, passw, confirmpass):
+    #     cleaned_data = super(UserForm, self).clean()
+    #
+    #     password = passw
+    #     confirm_password = confirmpass
+    #     if len(password) < 6:
+    #         raise forms.ValidationError("Mật khẩu từ 6 đến 24 kí tự!")
+    #
+    #     if len(password) > 24:
+    #         raise forms.ValidationError("Mật khẩu từ 6 đến 24 kí tự!")
 
     def clean_username(self):
         clean_data = super(UserForm, self).clean()
         username = clean_data.get('username')
         if not re.search(r'^\w+$', username):
             raise forms.ValidationError("Tên tài khoản có ký tự đặc biệt!")
-        if 6 > len(username) > 24:
+
+        if len(username) < 6:
             raise forms.ValidationError("Tên tài khoản từ 6 đến 24 kí tự!")
+
+        if len(username) > 24:
+            raise forms.ValidationError("Tên tài khoản từ 6 đến 24 kí tự!")
+
         try:
             UserProfile.objects.get(user__username=username)
         except ObjectDoesNotExist:
