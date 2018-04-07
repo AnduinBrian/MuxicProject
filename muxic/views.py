@@ -35,7 +35,7 @@ class SongDetail(DetailView):
     template_name = 'muxic/song_detail.html'
 
     def get(self, request, id, **kwargs):
-        song_title = Song.objects.get(id=id)
+        song_title = Song.objects.get(pk=id)
         return render(request, self.template_name, {'detSong': song_title})
 
 
