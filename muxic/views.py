@@ -7,7 +7,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, CreateView, FormView, RedirectView, ListView, DetailView
+from django.views.generic import TemplateView, CreateView, FormView, RedirectView, ListView, DetailView, UpdateView, \
+    DeleteView
 from django.views.generic.base import View
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
 from django.utils.http import is_safe_url
@@ -16,7 +17,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.conf import settings
 
 # Create your views here.
-from muxic.form import UserForm
+from muxic.form import UserForm, CreatSongForm
 from muxic.models import *
 
 
@@ -26,6 +27,7 @@ class IndexView(TemplateView):
 
 class AllSong(ListView):
     template_name = 'muxic/all_song.html'
+    context_object_name = 'all_song'
 
     def get_queryset(self):
         return Song.objects.all()
@@ -33,10 +35,11 @@ class AllSong(ListView):
 
 class SongDetail(DetailView):
     template_name = 'muxic/song_detail.html'
+    model = Song
 
-    def get(self, request, id, **kwargs):
-        song_title = Song.objects.get(pk=id)
-        return render(request, self.template_name, {'detSong': song_title})
+    # def get(self, request, id, **kwargs):
+    #     song_title = Song.objects.get(pk=id)
+    #     return render(request, self.template_name, {'detSong': song_title})
 
 
 class ProfileView(View):
@@ -194,14 +197,29 @@ class Search(ListView):
             return render(request, self.template_name, )
 
 
-class SongCreate(CreateView):
-    # form_class = CreateSongForm
-    model = Song
-    template_name = 'muxic/add_album.html'
-    fields = ['title', 'artist', 'logo', 'file', 'date_release', 'lyric']
+# class SongCreate(CreateView):
+#     # form_class = CreateSongForm
+#     model = Song
+#     template_name = 'muxic/song_form.html'
+#     fields = ['title', 'artist', 'logo', 'file', 'date_release', 'lyric']
+#
+#     def get_form(self):
+#         form_class = self.get_form_class()
+#         form = super(SongCreate, self).get_form(form_class)
+#         form.fields['date_release'].widget = forms.DateInput()
+#         return form
 
-    def get_form(self):
-        form_class = self.get_form_class()
-        form = super(SongCreate, self).get_form(form_class)
-        form.fields['date_release'].widget = forms.DateInput()
-        return form
+class SongCreate(CreateView):
+    form_class = CreatSongForm
+    model = Song
+    template_name = 'muxic/song_form.html'
+
+
+class SongUpdate(UpdateView):
+    model = Song
+    fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
+
+
+class SongDelete(DeleteView):
+    model = Song
+    success_url = reverse_lazy('muxic:allsong')

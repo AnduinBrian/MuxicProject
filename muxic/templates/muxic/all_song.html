@@ -12,16 +12,40 @@
                         <th class="col-md-3">Tên bài hát</th>
                         <th class="col-md-3">Ca Sĩ</th>
                         <th class="col-md-3">Ngày cập nhật</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                        {% for s in object_list %}
-                            <tr>
-                                <td class="col-md-3"><a href="{% url 'muxic:songdetail' s.id %}">{{ s.title }}</a></td>
-                                <td class="col-md-3">{{ s.artist }}</td>
-                                <td class="col-md-3">{{ s.date_release }}</td>
-                            </tr>
-                        {% endfor %}
+                    {% for song in all_song %}
+                        <tr>
+                            <td class="col-md-3"><a href="{% url 'muxic:songdetail' song.pk %}">{{ song.title }}</a>
+                            </td>
+                            <td class="col-md-3">{{ song.artist }}</td>
+                            <td class="col-md-3">{{ song.date_release }}</td>
+                            <td>
+                                <form action="{% url 'muxic:update_song' song.pk %}" method="post"
+                                      style="display: inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="song_id" value="{{ song.id }}"/>
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{% url 'muxic:delete_song' song.pk %}" method="post"
+                                      style="display: inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="song_id" value="{{ song.id }}"/>
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </form>
+                            </td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -35,24 +59,24 @@
                     <div class="carousel-inner">
                         <div class="item active">
                             <img src="{% static 'muxic/images/images-1.jpg' %}" alt="item 1">
-                                <div class="carousel-caption">
-                                    <h3> Enjoy your moment</h3>
-                                    <h5>Be happy for this  moment</h5>
-                                </div>
+                            <div class="carousel-caption">
+                                <h3> Enjoy your moment</h3>
+                                <h5>Be happy for this moment</h5>
+                            </div>
                         </div>
                         <div class="item ">
                             <img src="{% static 'muxic/images/images-2.jpg' %}" alt="item 2">
-                                <div class="carousel-caption">
-                                    <h3> Live your life</h3>
-                                    <h5>Live your life in your own way</h5>
-                                </div>
+                            <div class="carousel-caption">
+                                <h3> Live your life</h3>
+                                <h5>Live your life in your own way</h5>
+                            </div>
                         </div>
                         <div class="item ">
                             <img src="{% static 'muxic/images/images-3.jpg' %}" alt="item 3">
-                                <div class="carousel-caption">
-                                    <h3> No music</h3>
-                                    <h4>We riot</h4>
-                                </div>
+                            <div class="carousel-caption">
+                                <h3> No music</h3>
+                                <h4>We riot</h4>
+                            </div>
                         </div>
                     </div>
                 </div>

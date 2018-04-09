@@ -6,8 +6,9 @@ import re
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.validators import validate_email
 from django.utils.text import capfirst
+from django.views.generic import UpdateView
 
-from muxic.models import UserProfile
+from muxic.models import UserProfile, Song
 
 
 class UserForm(forms.ModelForm):
@@ -90,6 +91,38 @@ class UserForm(forms.ModelForm):
             return email
         raise forms.ValidationError("Email đã tồn tại")
 
+
 # class UserProfileForm(forms.ModelForm):
 #     class Meta:
 #         model = UserProfile
+
+
+class CreatSongForm(forms.ModelForm):
+    class Meta:
+        model = Song
+        fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
+        widgets = {
+            'date_release': forms.SelectDateWidget()
+        }
+
+    def clean_info(self):
+        cleaned_data = super(CreatSongForm, self).clean()
+        title = cleaned_data.get('title')
+        artist = cleaned_data.get('artist')
+        try:
+            Song.objects.filter(artist=artist).filter(title=title)
+        except ObjectDoesNotExist:
+            return artist
+        raise forms.ValidationError('Bài hát đã tồn tại')
+
+
+class UpdateSongForm(UpdateView):
+    class Meta:
+        model = Song
+        fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
+        widgets = {
+            'date_release': forms.SelectDateWidget()
+        }
+
+    def get_object(self):
+        return Song.objects.get(pk=self.request.GET.get('pk'))  # or request.POST

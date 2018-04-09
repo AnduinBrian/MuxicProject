@@ -7,7 +7,8 @@
         <div class="row" id="TopDetail">
             <div class="col-md-9">
 {#                <h1>Thông tin bài hát </h1>#}
-                <h3 style="margin-left: 5%; color: #ffffff">{{ detSong.title }} - {{ detSong.artist }}</h3>
+                <h3 style="margin-left: 5%; color: #ffffff">{{ song.title }} - {{ song.artist }}</h3>
+                <h5 style="margin-left: 5%; color: #ffffff">{{ song.genre }}</h5>
 {#                <h3 style="margin-left: 5%">Tên bài hát: Nghệ sĩ: </h3>#}
                 {#                    <div id="mp3_player" class="col-md-12">#}
                 {#	                    <canvas id="analyser_render"></canvas>#}
@@ -53,13 +54,13 @@
                 <div class="row">
                     <div class="col-md-9" id="left_song">
                         <div class="col-md-3">
-                            <img src="{{ detSong.logo.url }}" id="UploadPic2">
+                            <img src="{{ song.logo.url }}" id="UploadPic2">
                         </div>
                         <div class="col-md-9" style="border-left: 1px solid #9d9d9d">
                             <div class="col-md-12">
                                 <h3>Lyrics:</h3>
                                 <div id="Lyric_feild">
-                                    {{ detSong.lyric }}
+                                    {{ song.lyric | safe | linebreaks}}
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -82,7 +83,7 @@
     </div>
     <script>
         var audio = new Audio();
-        audio.src = '{{ detSong.file.url }}';
+        audio.src = '{{ song.file.url }}';
         audio.controls = true;
         audio.loop = true;
         audio.autoplay = true;
