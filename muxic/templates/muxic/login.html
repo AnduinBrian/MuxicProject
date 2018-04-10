@@ -1,5 +1,5 @@
-{% extends 'muxic/index.html' %}
-{% block login %}
+{% extends 'muxic/theme.html' %}
+{% block body %}
     <form class="form-group" id="login-form" method="post" style="text-align: center">
         {% csrf_token %}
         {#    {% for field in form %}#}
