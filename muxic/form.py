@@ -100,7 +100,7 @@ class UserForm(forms.ModelForm):
 class CreatSongForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
+        fields = ['owner', 'title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
         widgets = {
             'date_release': forms.SelectDateWidget()
         }

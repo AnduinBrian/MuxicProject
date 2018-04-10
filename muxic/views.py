@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.conf import settings
 
 # Create your views here.
-from muxic.form import UserForm, CreatSongForm
+from muxic.form import UserForm, CreatSongForm, UpdateSongForm
 from muxic.models import *
 
 
@@ -217,7 +217,7 @@ class SongCreate(CreateView):
 
 class SongUpdate(UpdateView):
     model = Song
-    fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
+    form_class = UpdateSongForm
 
 
 class SongDelete(DeleteView):

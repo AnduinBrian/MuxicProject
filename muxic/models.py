@@ -20,8 +20,7 @@ GENRE_CHOICE = (
 # Create your models here.
 
 class Song(models.Model):
-    # album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    # id = models.AutoField(primary_key=True)
+    owner = models.OneToOneField(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=1000)
     artist = models.CharField(max_length=500)
     genre = models.CharField(max_length=100, choices=GENRE_CHOICE, default='EDM')
@@ -39,7 +38,7 @@ class Song(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
     bio = models.TextField(max_length=500, blank=True)
     favorite = models.ManyToManyField(Song, blank=True, related_name='favorite_song')
 
