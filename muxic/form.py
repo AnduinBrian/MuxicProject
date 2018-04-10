@@ -116,13 +116,10 @@ class CreatSongForm(forms.ModelForm):
         raise forms.ValidationError('Bài hát đã tồn tại')
 
 
-class UpdateSongForm(UpdateView):
+class UpdateSongForm(forms.ModelForm):
     class Meta:
         model = Song
         fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
         widgets = {
             'date_release': forms.SelectDateWidget()
         }
-
-    def get_object(self):
-        return Song.objects.get(pk=self.request.GET.get('pk'))  # or request.POST

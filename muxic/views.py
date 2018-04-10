@@ -215,7 +215,7 @@ class SongCreate(CreateView):
     template_name = 'muxic/song_form.html'
 
 
-class SongUpdate(UpdateView):
+class SongUpdate(forms.ModelForm):
     model = Song
     fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
 
