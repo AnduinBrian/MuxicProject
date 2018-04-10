@@ -41,10 +41,6 @@ body {
 #myCarousel {
     height: 295px;
     margin-bottom: 30px;
-    border: 5px;
-    border-width: 3px;
-    border-style: solid;
-    border-color: #0a0a0a;
 }
 
 #btnRight {
@@ -262,4 +258,18 @@ footer .form-control {
 
 #rightslide {
   width: 300px;
+}
+#index1{
+    background-image: url("../images/index1.jpg");
+    height: 500px;
+    margin-top: -15px;
+}
+
+#indexButton1{
+    background: none;
+    width: 150px;
+    margin-top: 3px;
+}
+#indexButton1:hover{
+    background: green;
 }

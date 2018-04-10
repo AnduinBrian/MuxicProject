@@ -4,7 +4,8 @@
 
     <!-- slide -->
     <div class="container-fluid">
-        <div class="carousel slide" id="myCarousel" data-ride="carousel">
+       <div class="panel panel-body">
+             <div class="carousel slide" id="myCarousel" data-ride="carousel">
             <ol class="carousel-indicators" style="display: none">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -44,7 +45,31 @@
             -->
             </div>
         </div>
+           <div class="container-fluid">
+        <div class="col-md-12" id="index1">
+            <div class="col-md-offset-7 col-md-4" style="margin-top: 20px" >
+                <h2 style="color: #fff">Nghe nhạc hoặc <br> Upload bài nhạc riêng của bạn</h2>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'muxic:add_song' %}"> <button type="button" class="btn btn-success" id="indexButton1">Tải lên</button> </a>
+                {% else %}
+                    <a href="{% url 'muxic:login' %}"> <button type="button" class="btn btn-success" id="indexButton1">Tải lên</button> </a>
+                {% endif %}
+            </div>
+        </div>
+               <div class="col-md-12" style="margin-top: 20px" >
+                   {% if user.is_authenticated %}
+                    <h2 align="center"> Chào mừng tới web âm nhạc Soundcloud VN</h2>
+                   {% else %}
+                    <h2 align="center">Hãy tham gia ngay bây giờ</h2>
+                        <a href="{% url 'muxic:register' %}"> <button type="button" class="btn btn-warning" style="width: 150px; margin-left: 45%">Đăng kí</button></a>
+                   {% endif %}
+               </div>
+           </div>
+       </div>
     </div>
+
+
+
     {% block login %}{% endblock %}
     <!-- About us -->
     <!--
@@ -54,31 +79,7 @@
         </div>
     </div>
     -->
-    <div class="container-fluid">
-        <div class="col-md-12 align-middle" style="text-align: center;margin-bottom: 10px">
-            <h2>About us</h2>
-        </div>
-        <div class="row" id="AboutUS">
-            <div class="col-md-4" id="iconAbout1">
-                <span style="font-size: 30px; margin-bottom: 15px " class="glyphicon glyphicon-play-circle"></span>
-                <div>
-                    <p>Nghe nhạc chất lượng cao</p>
-                </div>
-            </div>
-            <div class="col-md-4" class="itemAbout">
-                <span style="font-size: 30px; margin-bottom: 15px;" class="glyphicon glyphicon-th-list"></span>
-                <div>
-                    <p>Chia sẻ Album</p>
-                </div>
-            </div>
-            <div class="col-md-4" class="itemAbout">
-                <span style="font-size: 30px; margin-bottom: 15px" class="glyphicon glyphicon-heart"></span>
-                <div>
-                    <p>Theo dõi nghệ sĩ bạn yêu thích</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
     <!--Footer-->
@@ -102,11 +103,5 @@
 {#        </div>#}
 {#    </div>#}
 {% endblock body %}
-<!--Copyright-->
-<div class="footer-copyright" style="text-align: center;">
-    <div class="container-fluid">
-        &copy; 2018 Copyright: ALT </a>
-    </div>
-</div>
-</footer>
+
 
