@@ -64,16 +64,16 @@
                             <li role="presentation" class="col-md-12 control-label"
                                 style="margin-left: 17px;color: #357ae8 ">
                                 <strong>Email: </strong> {{ user_profile.user.email }} </li>
-{#                            <li role="presentation" class="col-md-12">#}
-{#                                <a href="#"><strong> Người theo dõi: </strong> <span#}
-{#                                        class="badge"> {{ user_profile.followers }}</span></a>#}
-{#                            </li>#}
-{#                            <li role="presentation" class="col-md-12 control-label">#}
-{#                                <a href="#"><strong> Người đang theo dõi: </strong> <span#}
-{#                                        class="badge"> {{ user_profile.followings }}</span></a>#}
-{#                            <li role="presentation" class="col-md-12 control-label">#}
-{#                                <blockquote>{{ user_profile.bio }}</blockquote>#}
-{#                            </li>#}
+                            {#                            <li role="presentation" class="col-md-12">#}
+                            {#                                <a href="#"><strong> Người theo dõi: </strong> <span#}
+                            {#                                        class="badge"> {{ user_profile.followers }}</span></a>#}
+                            {#                            </li>#}
+                            {#                            <li role="presentation" class="col-md-12 control-label">#}
+                            {#                                <a href="#"><strong> Người đang theo dõi: </strong> <span#}
+                            {#                                        class="badge"> {{ user_profile.followings }}</span></a>#}
+                            {#                            <li role="presentation" class="col-md-12 control-label">#}
+                            {#                                <blockquote>{{ user_profile.bio }}</blockquote>#}
+                            {#                            </li>#}
                         </ul>
                         <div class="col-md-12  ">
                             <div class="panel-group" id="accordion">
@@ -112,16 +112,42 @@
                                         </h4>
                                     </div>
                                 </div>
-{#                                <div class="panel panel-default">#}
-{#                                    <div class="panel-heading">#}
-{#                                        <h4 class="panel-title">#}
-{#                                            <a data-toggle="collapse" data-parent="#accordion"#}
-{#                                               href="#collapseThree"><span class="glyphicon">#}
-{#                                                </span><strong>Kênh của tôi</strong></a>#}
-{#                                        </h4>#}
-{#                                    </div>#}
-{#                                </div>#}
+                                {#                                <div class="panel panel-default">#}
+                                {#                                    <div class="panel-heading">#}
+                                {#                                        <h4 class="panel-title">#}
+                                {#                                            <a data-toggle="collapse" data-parent="#accordion"#}
+                                {#                                               href="#collapseThree"><span class="glyphicon">#}
+                                {#                                                </span><strong>Kênh của tôi</strong></a>#}
+                                {#                                        </h4>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
                             </div>
+                        </div>
+                        <div class="col-md-9">
+                            <table class="table table-hover table-dark">
+                                <thead>
+                                <tr>
+                                    <th class="col-md-3">Tên bài hát</th>
+                                    <th class="col-md-3">Ca Sĩ</th>
+                                    <th class="col-md-3">Ngày cập nhật</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if favorite_song %}
+                                    {% for song in favorite_song %}
+                                        <tr>
+                                            <td class="col-md-3"><a
+                                                    href="{% url 'muxic:songdetail' song.id %}">{{ song.title }}</a>
+                                            </td>
+                                            <td class="col-md-3">{{ song.artist }}</td>
+                                            <td class="col-md-3">{{ song.date_release }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>Không có bài hát yêu thích</p>
+                                {% endif %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

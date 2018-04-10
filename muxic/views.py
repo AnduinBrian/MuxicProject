@@ -215,7 +215,7 @@ class SongCreate(CreateView):
     template_name = 'muxic/song_form.html'
 
 
-class SongUpdate(forms.ModelForm):
+class SongUpdate(UpdateView):
     model = Song
     fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
 
@@ -223,3 +223,33 @@ class SongUpdate(forms.ModelForm):
 class SongDelete(DeleteView):
     model = Song
     success_url = reverse_lazy('muxic:allsong')
+
+
+class FavoriteView(View):
+
+    def get(self, request, *args, **kwargs):
+        if 'pk' in self.kwargs:
+            user = request.user
+            user_profile = UserProfile.objects.get(user=user)
+            song = Song.objects.get(id=self.kwargs['pk'])
+            song.favorite.add(user)
+            user_profile.favorite.add(song)
+            song.save()
+            user_profile.save()
+            template = request.GET.get('path')
+        return redirect(template)
+
+
+class UnFavoriteView(View):
+
+    def get(self, request, *args, **kwargs):
+        if 'pk' in self.kwargs:
+            user = request.user
+            user_profile = UserProfile.objects.get(user=user)
+            song = Song.objects.get(id=self.kwargs['pk'])
+            song.favorite.remove(user)
+            user_profile.favorite.remove(song)
+            song.save()
+            user_profile.save()
+            template = request.GET.get('path')
+        return redirect(template)

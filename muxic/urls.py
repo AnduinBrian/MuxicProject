@@ -18,4 +18,6 @@ urlpatterns = [
     path('song/<int:pk>', SongDetail.as_view(), name='songdetail'),
     path('all_song/', AllSong.as_view(), name='allsong'),
     path('search/', Search.as_view(), name='search'),
+    path('favorite/<int:pk>/', FavoriteView.as_view(), name='favorite'),
+    path('unfavorite/<int:pk>/', UnFavoriteView.as_view(), name='unfavorite')
 ]
