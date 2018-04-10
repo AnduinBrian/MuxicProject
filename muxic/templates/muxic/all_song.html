@@ -12,8 +12,6 @@
                         <th class="col-md-3">Tên bài hát</th>
                         <th class="col-md-3">Ca Sĩ</th>
                         <th class="col-md-3">Ngày cập nhật</th>
-                        <th></th>
-                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -23,27 +21,6 @@
                             </td>
                             <td class="col-md-3">{{ song.artist }}</td>
                             <td class="col-md-3">{{ song.date_release }}</td>
-                            <td>
-                                <form action="{% url 'muxic:update_song' song.pk %}" method="post"
-                                      style="display: inline">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="song_id" value="{{ song.id }}"/>
-                                    <button type="submit" class="btn btn-default btn-sm">
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="{% url 'muxic:delete_song' song.pk %}" method="post"
-                                      style="display: inline">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="song_id" value="{{ song.id }}"/>
-                                    <button type="submit" class="btn btn-default btn-sm">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </form>
-                            </td>
-                            <td></td>
                         </tr>
                     {% endfor %}
                     </tbody>

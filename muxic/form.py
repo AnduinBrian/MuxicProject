@@ -100,20 +100,10 @@ class UserForm(forms.ModelForm):
 class CreatSongForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
+        fields = ['owner', 'title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
         widgets = {
             'date_release': forms.SelectDateWidget()
         }
-
-    def clean_info(self):
-        cleaned_data = super(CreatSongForm, self).clean()
-        title = cleaned_data.get('title')
-        artist = cleaned_data.get('artist')
-        try:
-            Song.objects.filter(artist=artist).filter(title=title)
-        except ObjectDoesNotExist:
-            return artist
-        raise forms.ValidationError('Bài hát đã tồn tại')
 
 
 class UpdateSongForm(forms.ModelForm):

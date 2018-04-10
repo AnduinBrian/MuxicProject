@@ -22,6 +22,7 @@ GENRE_CHOICE = (
 class Song(models.Model):
     # album = models.ForeignKey(Album, on_delete=models.CASCADE)
     # id = models.AutoField(primary_key=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=1000)
     artist = models.CharField(max_length=500)
     genre = models.CharField(max_length=100, choices=GENRE_CHOICE, default='EDM')
