@@ -2,19 +2,6 @@
 {% block body %}
     <form class="form-group" id="login-form" method="post" style="text-align: center; margin-top: 150px">
         {% csrf_token %}
-        {#    {% for field in form %}#}
-        {#        <div class="form-group">#}
-        {#        {% csrf_token %}#}
-        {#        <div class="col-sm-offset-2 col-sm-10">#}
-        {#            <span class="text-danger small">{{ field.errors }}</span>#}
-        {#        </div>#}
-        {#        <label class="control-label col-sm-4" for="label_tag">{{ field.label_tag }}</label>#}
-        {#        <div class="col-sm-10" style="width: 400px;">#}
-        {#                        <input type="text" class="form-control" id="inputID3" placeholder=""#}
-        {#                               style="width: 400px;">#}
-        {#            {{ field }}#}
-        {#        </div>#}
-        {#    {% endfor %}#}
         {% for key, value in form.error.item %}{{ value }}{% endfor %}
         <div class="form-group">
             <label class="required" for="id_username">Username:&nbsp;</label>{{ form.username }}
@@ -22,16 +9,9 @@
         <div class="form-group">
             <label class="required" for="id_password">Password:&nbsp;</label>{{ form.password }}
         </div>
-        {#    <p><label>Username:&nbsp;</label>{{ form.username }}</p>#}
-        {#    <p><label>Password:&nbsp;</label>{{ form.password }}</p>#}
         <input type="hidden" name="next" value="/"/><br>
         <div class="row">
-            <div class=" col-sm-offset-4 col-sm-4">
-                <div class="form-group">
-                    <div class="login-help">
-                        <a href="{% url 'muxic:register' %}">Đăng ký</a> - <a href="#">Quên mật khẩu?</a>
-                    </div>
-                </div>
+            <div class=" col-sm-offset-2 col-sm-4">
             </div>
             <div class="col-sm-4">
                 <div style="text-align: left">

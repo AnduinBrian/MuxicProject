@@ -1,22 +1,17 @@
-from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, CreateView, FormView, RedirectView, ListView, DetailView, UpdateView, \
     DeleteView
 from django.views.generic.base import View
-from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
-from django.utils.http import is_safe_url
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from django.conf import settings
 
-# Create your views here.
 from muxic.form import UserForm, CreatSongForm, UpdateSongForm
 from muxic.models import *
 
@@ -33,19 +28,26 @@ class AllSong(ListView):
         return Song.objects.all()
 
 
-class SongDetail(DetailView):
+class SongDetailView(DetailView):
     template_name = 'muxic/song_detail.html'
     model = Song
 
-    # def get(self, request, id, **kwargs):
-    #     song_title = Song.objects.get(pk=id)
-    #     return render(request, self.template_name, {'detSong': song_title})
+    def get_context_data(self, **kwargs):
+        context = super(SongDetailView, self).get_context_data(**kwargs)  # get the default context data
+        if self.request.user.is_authenticated:
+            song = Song.objects.get(id=self.kwargs['pk'])
+            user = self.request.user
+            if song.favorite_song.filter(user=user).exists():
+                is_favorite = True
+            else:
+                is_favorite = False
+            context['is_favorite'] = is_favorite  # add extra field to the context
+            return context
+        return context
 
 
 class ProfileView(View):
     template_name = 'muxic/user.html'
-
-    # username = User.username
 
     def get(self, request, username):
         user = User.objects.get(username=username)
@@ -79,9 +81,6 @@ class RegisterView(View):
             # returns User objects if credentials are correct
             user = authenticate(username=username, password=password)
 
-            # login(request, user)
-            # return redirect('muxic:index')
-
             if user is not None:
                 if user.is_active:
                     login(request, user)
@@ -94,7 +93,6 @@ class LoginView(FormView):
     form_class = AuthenticationForm
     redirect_field_name = REDIRECT_FIELD_NAME
     template_name = 'muxic/login.html'
-    # template_name = 'muxic/theme.html'
     success_url = '../../'
 
     @method_decorator(csrf_protect)
@@ -114,15 +112,7 @@ class LoginView(FormView):
         if self.success_url:
             redirect_to = self.success_url
         else:
-            # redirect_to = self.request.REQUEST.get(self.redirect_field_name, '')
-
             redirect_to = 'muxic/index.html'
-        # netloc = urlparse.urlparse(redirect_to)[1]
-        # if not redirect_to:
-        #     redirect_to = settings.LOGIN_REDIRECT_URL
-        # # Security check -- don't allow redirection to a different host.
-        # elif netloc and netloc != self.request.get_host():
-        #     redirect_to = settings.LOGIN_REDIRECT_URL
         return redirect_to
 
     def set_test_cookie(self):
@@ -170,53 +160,22 @@ class Search(ListView):
     template_name = 'muxic/search.html'
 
     def get(self, request):
-
         queryset_list = Song.objects.all().order_by("-date_release")
         query = request.GET.get("q")
         if query:
             queryset_list = queryset_list.filter(
                 Q(title__icontains=query)
-                # Q(artist__icontains=query)
             ).distinct()
-            # paginator = Paginator(queryset_list, 5)
-            # page_request_var = 'page'
-            # page = request.GET.get(page_request_var)
-            # try:
-            #     queryset = paginator.page(page)
-            # except PageNotAnInteger:
-            #     queryset = paginator.page(1)
-            # except EmptyPage:
-            #     queryset = paginator.page(paginator.num_pages)
-            #
-            # context = {
-            #     "queryset_list": queryset,
-            #     "title":"list",
-            #     "page_request_var": page_request_var
-            # }
+
             return render(request, self.template_name, {'queryset_list': queryset_list})
         else:
             return render(request, self.template_name, )
 
 
-# class SongCreate(CreateView):
-#     # form_class = CreateSongForm
-#     model = Song
-#     template_name = 'muxic/song_form.html'
-#     fields = ['title', 'artist', 'logo', 'file', 'date_release', 'lyric']
-#
-#     def get_form(self):
-#         form_class = self.get_form_class()
-#         form = super(SongCreate, self).get_form(form_class)
-#         form.fields['date_release'].widget = forms.DateInput()
-#         return form
-
 class SongCreate(CreateView):
     form_class = CreatSongForm
     model = Song
     template_name = 'muxic/song_form.html'
-    #
-    # def post(self, request, *args, **kwargs):
-    #     if ()
 
 
 class SongUpdate(UpdateView):
@@ -240,7 +199,7 @@ class FavoriteView(View):
             user_profile.favorite.add(song)
             song.save()
             user_profile.save()
-            template = request.GET.get('path')
+            template = request.GET.get('path') #Lấy link trước đó để quay lại trang trước
         return redirect(template)
 
 

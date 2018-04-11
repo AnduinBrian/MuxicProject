@@ -13,14 +13,11 @@ GENRE_CHOICE = (
     ('Ballad', 'Ballad'),
     ('EDM', 'EDM'),
     ('Country', 'Country'),
-    ('etc', 'ETC'),
+    ('etc', 'Khác'),
 )
 
 
-# Create your models here.
-
 class Song(models.Model):
-    # owner = models.OneToOneField(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=1000)
     artist = models.CharField(max_length=500)
     genre = models.CharField(max_length=100, choices=GENRE_CHOICE, default='EDM')
@@ -29,7 +26,7 @@ class Song(models.Model):
     file = models.FileField(upload_to='filesong', null=True)
     lyric = models.TextField(max_length=10000, null=True)
     favorite = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='user_favourite')
-    owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse('muxic:songdetail', kwargs={'pk': self.pk})

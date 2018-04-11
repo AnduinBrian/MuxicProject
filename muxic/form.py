@@ -1,13 +1,7 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UsernameField, UserModel
 from django.contrib.auth.models import *
 from django import forms
 import re
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
-from django.core.validators import validate_email
-from django.utils.text import capfirst
-from django.views.generic import UpdateView
-
+from django.core.exceptions import ObjectDoesNotExist
 from muxic.models import UserProfile, Song
 
 
@@ -50,17 +44,6 @@ class UserForm(forms.ModelForm):
         else:
             return confirm_password
 
-    # def clean_password(self, passw, confirmpass):
-    #     cleaned_data = super(UserForm, self).clean()
-    #
-    #     password = passw
-    #     confirm_password = confirmpass
-    #     if len(password) < 6:
-    #         raise forms.ValidationError("Mật khẩu từ 6 đến 24 kí tự!")
-    #
-    #     if len(password) > 24:
-    #         raise forms.ValidationError("Mật khẩu từ 6 đến 24 kí tự!")
-
     def clean_username(self):
         clean_data = super(UserForm, self).clean()
         username = clean_data.get('username')
@@ -82,9 +65,7 @@ class UserForm(forms.ModelForm):
     def clean_email(self):
         clean_data = super(UserForm, self).clean()
         email = clean_data.get('email')
-        # if not validate_email(email):
-        #
-        #     raise forms.ValidationError("Email không hợp lệ!")
+
         try:
             UserProfile.objects.get(user__email=email)
         except ObjectDoesNotExist:
@@ -92,14 +73,7 @@ class UserForm(forms.ModelForm):
         raise forms.ValidationError("Email đã tồn tại")
 
 
-# class UserProfileForm(forms.ModelForm):
-#     class Meta:
-#         model = UserProfile
-
-
 class CreatSongForm(forms.ModelForm):
-    # owner = User.
-
     class Meta:
         model = Song
         fields = ['owner', 'title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']

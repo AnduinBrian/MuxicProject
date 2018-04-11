@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'muxic/style/album.css' %}">
     <script src="{% static 'muxic/script/SongDetail.js' %}"></script>
 </head>
+
 <body>
 <!-- thanh menu top -->
 <nav class="navbar navbar-inverse navbar-fixed-top" id="topmenu">
@@ -52,8 +53,6 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" style="margin-top: 10px;color: white;background: #222222">
                             <li><a href="{% url 'muxic:user' user.username %}">Trang cá nhân</a></li>
-                            <li><a href="#">item 1</a></li>
-                            <li><a href="#">item 2</a></li>
                             <li class="divider"></li>
                             <li><a href="{% url 'muxic:logout' %}"><span class="glyphicon glyphicon-off"></span>Đăng
                                 xuất</a></li>
@@ -64,9 +63,18 @@
                         <a href="{% url 'muxic:login' %}"><span class=" glyphicon glyphicon-upload"></span>&nbsp; Tải
                             lên</a>
                     </li>
-                    <li>
-                        <a href="{% url 'muxic:login' %}"><span class="glyphicon glyphicon-log-in"></span>&nbsp; Đăng
-                            nhập</a>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" style="height: 50px;margin-top: -10px"><img
+                                class="img-circle" src="{% static 'muxic/images/profile.png' %}"
+                                style="height: 40px">&nbsp;<span>Đăng nhập</span><span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu" style="margin-top: 10px;color: white;background: #222222">
+                            <li><a href="{% url 'muxic:login' %}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Đăng
+                                nhập</a></li>
+                            <li><a href="{% url 'muxic:register' %}"><span
+                                    class="glyphicon glyphicon-user"></span>&nbsp;Đăng
+                                ký</a></li>
+                        </ul>
                     </li>
                 {% endif %}
             </ul>
@@ -74,90 +82,48 @@
     </div>
 </nav>
 
-{#<!-- popup đăng nhập -->#}
-{#<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">#}
-{#    <div class="modal-dialog">#}
-{#        <div class="loginmodal-container">#}
-{#            <h1>Đăng nhập</h1><br>#}
-{#            <form class="modal-content" id="login-form" method="post" style="text-align: center">#}
-{#                {% csrf_token %}#}
-{#                {% for key, value in form.error.item %}{{ value }}{% endfor %}#}
-{#                                            <input type="text" name="user" placeholder="Tài khoản">#}
-{#                                            <input type="password" name="pass" placeholder="Mật khẩu">#}
-{#                                            <div class="checkbox">#}
-{#                                                <label><input type="checkbox" name="remember"> Ghi nhớ</label>#}
-{#                                            </div>#}
-{#                <input type="submit" name="login" class="btn btn-lg btn-primary btn-block" value="Login">#}
-{#                <div class="form-row">#}
-{#                    <label class="required" for="id_username">Username:&nbsp;</label>{{ form.username }}#}
-{#                </div>#}
-{#                <div class="form-row">#}
-{#                    <label class="required" for="id_username">Password:&nbsp;</label>{{ form.password }}#}
-{#                </div>#}
-{#                <input type="hidden" name="next" value="/"/>#}
-{#                <div class="row">#}
-{#                    <div class=" col-sm-offset-4 col-sm-4">#}
-{#                        <div class="form-group" >#}
-{#                            <div class="login-help"s>#}
-{#                                <a href="{% url 'muxic:register' %}">Đăng ký</a> - <a href="#">Quên mật khẩu?</a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-sm-4">#}
-{#                         <div style="text-align: left">#}
-{#                                <button type="submit" class="btn btn-success">Đăng nhập</button>#}
-{#                         </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </form>#}
-{#            <div class="login-help">#}
-{#                <a href="{% url 'muxic:register' %}">Đăng ký</a> - <a href="#">Quên mật khẩu?</a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
 {% block body %}
 {% endblock %}
 
 {% block footer %}
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-offset-1 col-md-3">
-                <h4 style="text-align: center">Địa chỉ liên lạc: </h4>
-                <hr>
-                <ul>
-                    <li style="text-align: left ">Tòa nhà X, Khu phố Y, TP. Thanh Hóa, Thanh Hóa</li>
-                </ul>
-            </div>
-            <div class="col-md-offset-4 col-md-4">
-                <h4 style="text-align: center">Kết nối với chúng tôi</h4>
-                <hr>
-                <ul id="footer_icon">
-                    <li style="margin-left: -50px"><a href="#"><img src="{% static 'muxic/images/icon1.png' %}"
-                                                                    style="width: 50px;height: 50px"></a></li>
-                    <li style="margin-left: 30%"><a href="#"><img src="{% static 'muxic/images/icon2.png' %}"
-                                                                  style="width: 55px;height: 55px"></a></li>
-                    <li style="margin-left: 30%;"><a href="#"><img src="{% static 'muxic/images/icon3.png' %}"
-                                                                   style="width: 50px;height: 50px"></a></li>
-                </ul>
-                <br>
-                <br>
-                <br>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-1 col-md-3">
+                    <h4 style="text-align: center">Địa chỉ liên lạc: </h4>
+                    <hr>
+                    <ul>
+                        <li style="text-align: left ">Tòa nhà X, Khu phố Y, TP. Thanh Hóa, Thanh Hóa</li>
+                    </ul>
+                </div>
+                <div class="col-md-offset-4 col-md-4">
+                    <h4 style="text-align: center">Kết nối với chúng tôi</h4>
+                    <hr>
+                    <ul id="footer_icon">
+                        <li style="margin-left: -50px"><a href="#"><img src="{% static 'muxic/images/icon1.png' %}"
+                                                                        style="width: 50px;height: 50px"></a></li>
+                        <li style="margin-left: 30%"><a href="#"><img src="{% static 'muxic/images/icon2.png' %}"
+                                                                      style="width: 55px;height: 55px"></a></li>
+                        <li style="margin-left: 30%;"><a href="#"><img src="{% static 'muxic/images/icon3.png' %}"
+                                                                       style="width: 50px;height: 50px"></a></li>
+                    </ul>
+                    <br>
+                    <br>
+                    <br>
 
 
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
+        <div class="container-fluid">
 
-        <div class="col-md-12" id="CopyRight" style="margin-top: -10px">
-            <p style="text-align: center"> &copy; Copyright by: AL-Team</p>
+            <div class="col-md-12" id="CopyRight" style="margin-top: -10px">
+                <p style="text-align: center"> &copy; Copyright by: AL-Team</p>
+            </div>
         </div>
-    </div>
 
-</footer>
-</body>
-</html>
+    </footer>
+    </body>
+    </html>
 
 {% endblock %}
