@@ -201,10 +201,6 @@ footer .form-control {
     width: 100%;
 }
 
-.container-fluid {
-    width: 1319px;
-}
-
 #search input[type="text"] {
     background: url(../images/searchwhite.png) no-repeat 5px 2px #444;
     border: 0 none;
