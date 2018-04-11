@@ -47,7 +47,17 @@ class SongDetailView(DetailView):
 
 
 class ProfileView(View):
-    template_name = 'muxic/user.html'
+    template_name = 'muxic/song_upload.html'
+
+    def get(self, request, username):
+        user = User.objects.get(username=username)
+        user_profile = UserProfile.objects.get(user=user)
+        favorite_song = user_profile.favorite.all()
+        return render(request, self.template_name, {'user_profile': user_profile, 'favorite_song': favorite_song})
+
+
+class ProfileViewFav(View):
+    template_name = 'muxic/song_favorite.html'
 
     def get(self, request, username):
         user = User.objects.get(username=username)
