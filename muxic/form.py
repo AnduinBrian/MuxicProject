@@ -98,6 +98,8 @@ class UserForm(forms.ModelForm):
 
 
 class CreatSongForm(forms.ModelForm):
+    # owner = User.
+
     class Meta:
         model = Song
         fields = ['owner', 'title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
@@ -107,6 +109,7 @@ class CreatSongForm(forms.ModelForm):
 
     def clean_info(self):
         cleaned_data = super(CreatSongForm, self).clean()
+
         title = cleaned_data.get('title')
         artist = cleaned_data.get('artist')
         try:

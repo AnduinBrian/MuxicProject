@@ -214,6 +214,9 @@ class SongCreate(CreateView):
     form_class = CreatSongForm
     model = Song
     template_name = 'muxic/song_form.html'
+    #
+    # def post(self, request, *args, **kwargs):
+    #     if ()
 
 
 class SongUpdate(UpdateView):
