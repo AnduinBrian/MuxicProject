@@ -13,6 +13,7 @@ GENRE_CHOICE = (
     ('Ballad', 'Ballad'),
     ('EDM', 'EDM'),
     ('Country', 'Country'),
+    ('Rock', 'Rock'),
     ('etc', 'Khác'),
 )
 

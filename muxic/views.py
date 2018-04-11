@@ -23,9 +23,10 @@ class IndexView(TemplateView):
 class AllSong(ListView):
     template_name = 'muxic/all_song.html'
     context_object_name = 'all_song'
+    paginate_by = 12
 
     def get_queryset(self):
-        return Song.objects.all()
+        return Song.objects.all().order_by('title')
 
 
 class SongDetailView(DetailView):

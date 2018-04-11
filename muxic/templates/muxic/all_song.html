@@ -24,11 +24,26 @@
                             <td class="col-md-3">{{ song.artist }}</td>
                             <td class="col-md-3">{{ song.genre }}</td>
                             <td class="col-md-3">{{ song.date_release }}</td>
-                            <td class="col-md-3"><a href="{% url 'muxic:user' song.owner%}">{{ song.owner }}</a></td>
+                            <td class="col-md-3"><a href="{% url 'muxic:user' song.owner %}">{{ song.owner }}</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+                <div class="pagination">
+                    <span class="step-links">
+                         {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; Về đầu</a>
+                             <a href="?page={{ page_obj.previous_page_number }}">Quay lại</a>
+                         {% endif %}
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">Tiếp theo</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">Về cuối &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
             </div>
             <div class="col-md-3" id="rightslide">
                 <div class="carousel slide" data-ride="carousel">
