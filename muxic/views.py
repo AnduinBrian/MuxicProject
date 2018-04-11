@@ -50,7 +50,8 @@ class ProfileView(View):
     def get(self, request, username):
         user = User.objects.get(username=username)
         user_profile = UserProfile.objects.get(user=user)
-        return render(request, self.template_name, {'user_profile': user_profile})
+        favorite_song = user_profile.favorite.all()
+        return render(request, self.template_name, {'user_profile': user_profile, 'favorite_song': favorite_song})
 
 
 class RegisterView(View):

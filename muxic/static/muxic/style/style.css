@@ -6,6 +6,8 @@ body {
     padding: 0px;
     margin-bottom: 0px;
     padding-bottom: 0px;
+    min-height: 450px;
+    width: 1319px;
 }
 
 .item {
@@ -97,14 +99,6 @@ body {
     border-right: 3px;
     border-style: solid;
     border-width: 3px;
-}
-
-#signupinfo {
-    border-right: 3px;
-    border-bottom: 0px;
-    border-top: 0px;
-    border-left: 0px;
-    border-style: solid;
 }
 
 body {
@@ -204,8 +198,11 @@ footer .form-control {
 }
 
 #signupinfo {
-    width: 1500px;
-    height: 200px;
+    width: 100%;
+}
+
+.container-fluid {
+    width: 1319px;
 }
 
 #search input[type="text"] {
@@ -251,25 +248,27 @@ footer .form-control {
     border: 0;
 }
 
-.form-group{
-  margin-left: 0px;
-  height: 30px;
+.form-group {
+    margin-left: 0px;
+    height: 30px;
 }
 
 #rightslide {
-  width: 300px;
+    width: 300px;
 }
-#index1{
+
+#index1 {
     background-image: url("../images/index1.jpg");
     height: 500px;
     margin-top: -15px;
 }
 
-#indexButton1{
+#indexButton1 {
     background: none;
     width: 150px;
     margin-top: 3px;
 }
-#indexButton1:hover{
+
+#indexButton1:hover {
     background: green;
 }
