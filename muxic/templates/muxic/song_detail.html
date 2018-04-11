@@ -30,7 +30,7 @@
                             <div class="col-md-12" style="margin-bottom: 10px">
                                 <img src="{{ song.logo.url }}" id="UploadPic2">
                             </div>
-                            <div class="col-md-12" style="margin-bottom: 10px">
+                            <div class="col-md-12" style="margin-bottom: 10px; margin-left: 50px">
                                 {% if user.is_authenticated %}
                                     {% if is_favorite == True %}
                                         <form action="{% url 'muxic:unfavorite' song.id %}" method="get"
@@ -39,7 +39,7 @@
                                             <input type="hidden" name="song_id" value="{{ song.id }}"/>
                                             <input type="hidden" name="path" value="{{ request.path }}">
                                             <button type="submit" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-circle-arrow-down"> Unfavorite</span>
+                                                <span class="glyphicon glyphicon-heart-empty"></span>
                                             </button>
                                         </form>
                                     {% else %}
@@ -49,7 +49,7 @@
                                             <input type="hidden" name="song_id" value="{{ song.id }}"/>
                                             <input type="hidden" name="path" value="{{ request.path }}">
                                             <button type="submit" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-circle-arrow-up"> Favorite</span>
+                                                <span class="glyphicon glyphicon-heart"></span>
                                             </button>
                                             <label>{{ song.favorite.all.count }}</label>
                                         </form>
