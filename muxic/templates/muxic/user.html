@@ -5,7 +5,7 @@
 {% block body %}
     <!-- ảnh trên web login -->
     <div class="container-fluid">
-        <div class="row">
+        <div class="col-md-12">
             <div class="col-md-3" id="LeftMenu" style="background-color: #e7e7e7;">
                 <div class="row">
                     <div class="col-md-12">
@@ -25,35 +25,14 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span
-                                                    class="glyphicon ">
-                                                </span><strong>Yêu thích</strong></a>
+                                            <a href="#e"><span class="glyphicon "></span><strong>Yêu thích</strong></a>
                                         </h4>
-                                    </div>
-                                    <div id="collapseOne" class="panel-collapse collapse in">
-                                        <div class="panel-body">
-                                            <table class="table-borderless table-condensed table-hover">
-                                                <tr>
-                                                    <td>
-                                                        <span class="glyphicon "></span><a href="#">Playlist</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="glyphicon text-success"></span><a href="#">Bài
-                                                        hát</a>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span
-                                                    class="glyphicon ">
-                                                </span><strong>Nhạc upload</strong></a>
+                                            <a href="#"><span class="glyphicon "></span><strong>Nhạc upload</strong></a>
                                         </h4>
                                     </div>
                                 </div>
@@ -63,7 +42,7 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <table class="table table-hover table-dark">
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         <th class="col-md-3">Tên bài hát</th>
@@ -111,7 +90,9 @@
                             </tr>
                         {% endfor %}
                     {% else %}
-                        <p>Không có bài hát yêu thích</p>
+                        <tr>
+                            <td><p>Không có bài hát yêu thích</p></td>
+                        </tr>
                     {% endif %}
                     </tbody>
                 </table>
