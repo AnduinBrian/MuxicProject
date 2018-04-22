@@ -1,0 +1,102 @@
+from django.contrib.auth.models import *
+from django import forms
+import re
+from django.core.exceptions import ObjectDoesNotExist
+from muxic.models import UserProfile, Song
+
+
+class UserForm(forms.ModelForm):
+    username = forms.CharField(
+        widget=forms.TextInput,
+        max_length=254,
+    )
+    email = forms.CharField(
+        widget=forms.EmailInput,
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput,
+        strip=False,
+    )
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput,
+        strip=False,
+    )
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password', 'confirm_password')
+
+    def clean_confirm_password(self):
+        cleaned_data = super(UserForm, self).clean()
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+        if len(password) < 6:
+            print("check1")
+            raise forms.ValidationError("Mật khẩu từ 6 đến 24 kí tự!")
+
+        elif len(password) > 24:
+            print("check2")
+            raise forms.ValidationError("Mật khẩu từ 6 đến 24 kí tự!")
+
+        elif password != confirm_password:
+            raise forms.ValidationError("Mật khẩu bạn nhập không trùng!")
+            # raise ValidationError("Mật khẩu bạn nhập không trùng!")
+        else:
+            return confirm_password
+
+    def clean_username(self):
+        clean_data = super(UserForm, self).clean()
+        username = clean_data.get('username')
+        if not re.search(r'^\w+$', username):
+            raise forms.ValidationError("Tên tài khoản có ký tự đặc biệt!")
+
+        if len(username) < 6:
+            raise forms.ValidationError("Tên tài khoản từ 6 đến 24 kí tự!")
+
+        if len(username) > 24:
+            raise forms.ValidationError("Tên tài khoản từ 6 đến 24 kí tự!")
+
+        try:
+            UserProfile.objects.get(user__username=username)
+        except ObjectDoesNotExist:
+            return username
+        raise forms.ValidationError("Tài khoản đã tồn tại")
+
+    def clean_email(self):
+        clean_data = super(UserForm, self).clean()
+        email = clean_data.get('email')
+
+        try:
+            UserProfile.objects.get(user__email=email)
+        except ObjectDoesNotExist:
+            return email
+        raise forms.ValidationError("Email đã tồn tại")
+
+
+class CreatSongForm(forms.ModelForm):
+    class Meta:
+        model = Song
+        fields = ['owner', 'title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
+        widgets = {
+            'date_release': forms.SelectDateWidget()
+        }
+
+    def clean_info(self):
+        cleaned_data = super(CreatSongForm, self).clean()
+
+        title = cleaned_data.get('title')
+        artist = cleaned_data.get('artist')
+        try:
+            Song.objects.filter(artist=artist).filter(title=title)
+        except ObjectDoesNotExist:
+            return artist
+        raise forms.ValidationError('Bài hát đã tồn tại')
+
+
+class UpdateSongForm(forms.ModelForm):
+    class Meta:
+        model = Song
+        fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
+        widgets = {
+            'date_release': forms.SelectDateWidget()
+        }
