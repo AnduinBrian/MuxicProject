@@ -167,17 +167,17 @@ class LogoutView(RedirectView):
 
 
 class Search(ListView):
-    template_name = 'muxic/search.html'
+    template_name = 'muxic/all_song.html'
 
     def get(self, request):
-        queryset_list = Song.objects.all().order_by("-date_release")
+        all_song = Song.objects.all().order_by("-date_release")
         query = request.GET.get("q")
         if query:
-            queryset_list = queryset_list.filter(
+            all_song = all_song.filter(
                 Q(title__icontains=query)
             ).distinct()
 
-            return render(request, self.template_name, {'queryset_list': queryset_list})
+            return render(request, self.template_name, {'all_song': all_song})
         else:
             return render(request, self.template_name, )
 
@@ -226,3 +226,5 @@ class UnFavoriteView(View):
             user_profile.save()
             template = request.GET.get('path')
         return redirect(template)
+
+

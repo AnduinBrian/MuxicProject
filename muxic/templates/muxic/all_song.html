@@ -9,8 +9,8 @@
                 <table class="table table-hover table-dark">
                     <thead>
                     <tr>
-                        <th class="col-md-3">Tên bài hát</th>
-                        <th class="col-md-3">Ca Sĩ</th>
+                        <th class="col-md-4">Tên bài hát</th>
+                        {#                        <th class="col-md-3">Ca Sĩ</th>#}
                         <th class="col-md-3">Thể loại</th>
                         <th class="col-md-3">Ngày cập nhật</th>
                         <th class="col-md-3">Người đăng</th>
@@ -19,12 +19,13 @@
                     <tbody>
                     {% for song in all_song %}
                         <tr>
-                            <td class="col-md-3"><a href="{% url 'muxic:songdetail' song.pk %}">{{ song.title }}</a>
+                            <td class="col-md-4"><a href="{% url 'muxic:songdetail' song.pk %}">{{ song.title }}
+                                - {{ song.artist }}</a>
                             </td>
-                            <td class="col-md-3">{{ song.artist }}</td>
+                            {#                            <td class="col-md-3">{{ song.artist }}</td>#}
                             <td class="col-md-3">{{ song.genre }}</td>
                             <td class="col-md-3">{{ song.date_release }}</td>
-                            <td class="col-md-3"><a href="{% url 'muxic:user' song.owner%}">{{ song.owner }}</a></td>
+                            <td class="col-md-3"><a href="{% url 'muxic:user' song.owner %}">{{ song.owner }}</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
