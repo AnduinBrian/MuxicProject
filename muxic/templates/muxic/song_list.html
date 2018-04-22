@@ -17,17 +17,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for song in all_song %}
-                        <tr>
-                            <td class="col-md-4"><a href="{% url 'muxic:songdetail' song.pk %}">{{ song.title }}
-                                - {{ song.artist }}</a>
-                            </td>
-                            {#                            <td class="col-md-3">{{ song.artist }}</td>#}
-                            <td class="col-md-3">{{ song.genre }}</td>
-                            <td class="col-md-3">{{ song.date_release }}</td>
-                            <td class="col-md-3"><a href="{% url 'muxic:user' song.owner %}">{{ song.owner }}</a></td>
-                        </tr>
-                    {% endfor %}
+                    {% block songlist %}
+                        {% for song in song_list %}
+                            <tr>
+                                <td class="col-md-4"><a href="{% url 'muxic:songdetail' song.pk %}">{{ song.title }}
+                                    - {{ song.artist }}</a>
+                                </td>
+                                {#                            <td class="col-md-3">{{ song.artist }}</td>#}
+                                <td class="col-md-3"><a
+                                        href="{% url 'muxic:genre_filter' song.genre %}">{{ song.genre }}</a></td>
+                                <td class="col-md-3">{{ song.date_release }}</td>
+                                <td class="col-md-3"><a href="{% url 'muxic:user' song.owner %}">{{ song.owner }}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endblock %}
                     </tbody>
                 </table>
             </div>

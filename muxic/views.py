@@ -21,8 +21,8 @@ class IndexView(TemplateView):
 
 
 class AllSong(ListView):
-    template_name = 'muxic/all_song.html'
-    context_object_name = 'all_song'
+    template_name = 'muxic/song_list.html'
+    context_object_name = 'song_list'
 
     def get_queryset(self):
         return Song.objects.all()
@@ -167,17 +167,17 @@ class LogoutView(RedirectView):
 
 
 class Search(ListView):
-    template_name = 'muxic/all_song.html'
+    template_name = 'muxic/song_list.html'
 
     def get(self, request):
-        all_song = Song.objects.all().order_by("-date_release")
+        song_list = Song.objects.all().order_by("-date_release")
         query = request.GET.get("q")
         if query:
-            all_song = all_song.filter(
+            song_list = song_list.filter(
                 Q(title__icontains=query)
             ).distinct()
 
-            return render(request, self.template_name, {'all_song': all_song})
+            return render(request, self.template_name, {'song_list': song_list})
         else:
             return render(request, self.template_name, )
 
@@ -209,7 +209,7 @@ class FavoriteView(View):
             user_profile.favorite.add(song)
             song.save()
             user_profile.save()
-            template = request.GET.get('path') #Lấy link trước đó để quay lại trang trước
+            template = request.GET.get('path')  # Lấy link trước đó để quay lại trang trước
         return redirect(template)
 
 
@@ -228,3 +228,9 @@ class UnFavoriteView(View):
         return redirect(template)
 
 
+class GenreFilter(ListView):
+    template_name = 'muxic/song_list.html'
+
+    def get(self, request, genre):
+        song_list = Song.objects.filter(genre=genre)
+        return render(request, self.template_name, {'song_list': song_list})
