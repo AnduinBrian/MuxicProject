@@ -121,3 +121,29 @@ class UpdateSongForm(forms.ModelForm):
         widgets = {
             'date_release': forms.SelectDateWidget()
         }
+
+    def clean_logo(self):
+        cleaned_data = super(UpdateSongForm, self).clean()
+        logo = cleaned_data.get('logo')
+        logo_type = logo.content_type.split('/')[0]
+        if logo_type in settings.LOGO_TYPES:
+            if logo._size > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError(
+                    _('Vui lòng tải lên hình ảnh có dung lượng dưới %s. Dung lượng hiện tại %s') % (
+                        filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(logo._size)))
+        else:
+            raise forms.ValidationError(_('Không hỗ trợ kiểu file'))
+        return logo
+
+    def clean_file(self):
+        cleaned_data = super(UpdateSongForm, self).clean()
+        file = cleaned_data.get('file')
+        file_type = file.content_type.split('/')[0]
+        if file_type in settings.MUSIC_TYPES:
+            if file._size > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError(
+                    _('Vui lòng tải lên bài hát có dung lượng dưới %s. Dung lượng hiện tại %s') % (
+                        filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(file._size)))
+        else:
+            raise forms.ValidationError(_("Vui lòng tải lên file nhạc (.mp3)"))
+        return file
