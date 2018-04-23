@@ -186,16 +186,9 @@ class SongCreate(CreateView):
     model = Song
     template_name = 'muxic/song_form.html'
 
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        obj = form.save(commit=False)
-        obj.owner = self.request.user
-        form.save
-        if form.is_valid():
-            return self.form_valid(form)
-        return self.form_invalid(form)
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super(SongCreate, self).form_valid(form)
 
 
 class SongUpdate(UpdateView):
@@ -229,8 +222,9 @@ class FavoriteView(View):
             user_profile.favorite.add(song)
             song.save()
             user_profile.save()
-            template = request.GET.get('path')  # Lấy link trước đó để quay lại trang trước
-        return redirect(template)
+            # template = request.GET.get('path')  # Lấy link trước đó để quay lại trang trước
+            success_url = reverse_lazy('muxic:songdetail', kwargs={'pk': song.pk})
+        return HttpResponseRedirect(success_url)
 
 
 class UnFavoriteView(View):
@@ -244,8 +238,8 @@ class UnFavoriteView(View):
             user_profile.favorite.remove(song)
             song.save()
             user_profile.save()
-            template = request.GET.get('path')
-        return redirect(template)
+            success_url = reverse_lazy('muxic:songdetail', kwargs={'pk': song.pk})
+        return HttpResponseRedirect(success_url)
 
 
 class GenreFilter(ListView):

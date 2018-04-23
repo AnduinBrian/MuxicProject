@@ -116,3 +116,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/muxic/static/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'muxic/static/media')
+LOGO_TYPES = ['image']
+MUSIC_TYPES = ['audio']
+# 2.5MB - 2621440
+# 5MB - 5242880
+# 10MB - 10485760
+# 20MB - 20971520
+# 50MB - 5242880
+# 100MB 104857600
+# 250MB - 214958080
+# 500MB - 429916160
+MAX_UPLOAD_SIZE = 10485760
