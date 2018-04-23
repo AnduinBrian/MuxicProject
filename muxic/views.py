@@ -12,7 +12,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
-from muxic.form import UserForm, CreatSongForm, UpdateSongForm
+from muxic.form import RegisterForm, CreateSongForm, UpdateSongForm
 from muxic.models import *
 
 
@@ -67,13 +67,12 @@ class ProfileFavoriteView(View):
 
 
 class RegisterView(View):
-    form_class = UserForm
+    form_class = RegisterForm
     template_name = 'muxic/registration_form.html'
 
     # Display blank form
     def get(self, request):
         form = self.form_class(None)
-        print(form)
         return render(request, self.template_name, {'form': form})
 
     # Process form data
@@ -183,9 +182,20 @@ class Search(ListView):
 
 
 class SongCreate(CreateView):
-    form_class = CreatSongForm
+    form_class = CreateSongForm
     model = Song
     template_name = 'muxic/song_form.html'
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        obj = form.save(commit=False)
+        obj.owner = self.request.user
+        form.save
+        if form.is_valid():
+            return self.form_valid(form)
+        return self.form_invalid(form)
 
 
 class SongUpdate(UpdateView):
@@ -195,7 +205,17 @@ class SongUpdate(UpdateView):
 
 class SongDelete(DeleteView):
     model = Song
-    success_url = reverse_lazy('muxic:allsong')
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL.
+        """
+        self.object = self.get_object()
+        user = request.user
+        success_url = reverse_lazy('muxic:user', kwargs={'username': user.username})
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class FavoriteView(View):

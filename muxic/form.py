@@ -1,11 +1,14 @@
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import *
 from django import forms
 import re
 from django.core.exceptions import ObjectDoesNotExist
 from muxic.models import UserProfile, Song
+from django.utils.translation import gettext as _
 
 
-class UserForm(forms.ModelForm):
+class RegisterForm(forms.ModelForm):
     username = forms.CharField(
         widget=forms.TextInput,
         max_length=254,
@@ -27,7 +30,7 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'email', 'password', 'confirm_password')
 
     def clean_confirm_password(self):
-        cleaned_data = super(UserForm, self).clean()
+        cleaned_data = super(RegisterForm, self).clean()
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
         if len(password) < 6:
@@ -45,7 +48,7 @@ class UserForm(forms.ModelForm):
             return confirm_password
 
     def clean_username(self):
-        clean_data = super(UserForm, self).clean()
+        clean_data = super(RegisterForm, self).clean()
         username = clean_data.get('username')
         if not re.search(r'^\w+$', username):
             raise forms.ValidationError("Tên tài khoản có ký tự đặc biệt!")
@@ -63,7 +66,7 @@ class UserForm(forms.ModelForm):
         raise forms.ValidationError("Tài khoản đã tồn tại")
 
     def clean_email(self):
-        clean_data = super(UserForm, self).clean()
+        clean_data = super(RegisterForm, self).clean()
         email = clean_data.get('email')
 
         try:
@@ -73,16 +76,16 @@ class UserForm(forms.ModelForm):
         raise forms.ValidationError("Email đã tồn tại")
 
 
-class CreatSongForm(forms.ModelForm):
+class CreateSongForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields = ['owner', 'title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
+        fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
         widgets = {
             'date_release': forms.SelectDateWidget()
         }
 
     def clean_info(self):
-        cleaned_data = super(CreatSongForm, self).clean()
+        cleaned_data = super(CreateSongForm, self).clean()
 
         title = cleaned_data.get('title')
         artist = cleaned_data.get('artist')
