@@ -12,7 +12,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
-from muxic.form import UserForm, CreatSongForm, UpdateSongForm
+from muxic.form import RegisterForm, CreateSongForm, UpdateSongForm
 from muxic.models import *
 
 
@@ -21,8 +21,8 @@ class IndexView(TemplateView):
 
 
 class AllSong(ListView):
-    template_name = 'muxic/all_song.html'
-    context_object_name = 'all_song'
+    template_name = 'muxic/song_list.html'
+    context_object_name = 'song_list'
 
     def get_queryset(self):
         return Song.objects.all()
@@ -67,13 +67,12 @@ class ProfileFavoriteView(View):
 
 
 class RegisterView(View):
-    form_class = UserForm
+    form_class = RegisterForm
     template_name = 'muxic/registration_form.html'
 
     # Display blank form
     def get(self, request):
         form = self.form_class(None)
-        print(form)
         return render(request, self.template_name, {'form': form})
 
     # Process form data
@@ -167,25 +166,36 @@ class LogoutView(RedirectView):
 
 
 class Search(ListView):
-    template_name = 'muxic/all_song.html'
+    template_name = 'muxic/song_list.html'
 
     def get(self, request):
-        all_song = Song.objects.all().order_by("-date_release")
+        song_list = Song.objects.all().order_by("-date_release")
         query = request.GET.get("q")
         if query:
-            all_song = all_song.filter(
+            song_list = song_list.filter(
                 Q(title__icontains=query)
             ).distinct()
 
-            return render(request, self.template_name, {'all_song': all_song})
+            return render(request, self.template_name, {'song_list': song_list})
         else:
             return render(request, self.template_name, )
 
 
 class SongCreate(CreateView):
-    form_class = CreatSongForm
+    form_class = CreateSongForm
     model = Song
     template_name = 'muxic/song_form.html'
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        obj = form.save(commit=False)
+        obj.owner = self.request.user
+        form.save
+        if form.is_valid():
+            return self.form_valid(form)
+        return self.form_invalid(form)
 
 
 class SongUpdate(UpdateView):
@@ -195,7 +205,17 @@ class SongUpdate(UpdateView):
 
 class SongDelete(DeleteView):
     model = Song
-    success_url = reverse_lazy('muxic:allsong')
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL.
+        """
+        self.object = self.get_object()
+        user = request.user
+        success_url = reverse_lazy('muxic:user', kwargs={'username': user.username})
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class FavoriteView(View):
@@ -209,7 +229,7 @@ class FavoriteView(View):
             user_profile.favorite.add(song)
             song.save()
             user_profile.save()
-            template = request.GET.get('path') #Lấy link trước đó để quay lại trang trước
+            template = request.GET.get('path')  # Lấy link trước đó để quay lại trang trước
         return redirect(template)
 
 
@@ -228,3 +248,9 @@ class UnFavoriteView(View):
         return redirect(template)
 
 
+class GenreFilter(ListView):
+    template_name = 'muxic/song_list.html'
+
+    def get(self, request, genre):
+        song_list = Song.objects.filter(genre=genre)
+        return render(request, self.template_name, {'song_list': song_list})

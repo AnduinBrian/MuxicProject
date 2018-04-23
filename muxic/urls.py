@@ -19,5 +19,6 @@ urlpatterns = [
     path('all_song/', AllSong.as_view(), name='allsong'),
     path('search/', Search.as_view(), name='search'),
     path('favorite/<int:pk>/', FavoriteView.as_view(), name='favorite'),
-    path('unfavorite/<int:pk>/', UnFavoriteView.as_view(), name='unfavorite')
+    path('unfavorite/<int:pk>/', UnFavoriteView.as_view(), name='unfavorite'),
+    path('genre/<str:genre>/', GenreFilter.as_view(), name='genre_filter')
 ]
