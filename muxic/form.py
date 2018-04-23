@@ -4,6 +4,9 @@ from django.contrib.auth.models import *
 from django import forms
 import re
 from django.core.exceptions import ObjectDoesNotExist
+from django.template.defaultfilters import filesizeformat
+
+from MuxicProject import settings
 from muxic.models import UserProfile, Song
 from django.utils.translation import gettext as _
 
@@ -81,19 +84,34 @@ class CreateSongForm(forms.ModelForm):
         model = Song
         fields = ['title', 'artist', 'genre', 'logo', 'file', 'date_release', 'lyric']
         widgets = {
-            'date_release': forms.SelectDateWidget()
+            'date_release': forms.SelectDateWidget(),
         }
 
-    def clean_info(self):
+    def clean_logo(self):
         cleaned_data = super(CreateSongForm, self).clean()
+        logo = cleaned_data.get('logo')
+        logo_type = logo.content_type.split('/')[0]
+        if logo_type in settings.LOGO_TYPES:
+            if logo._size > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError(
+                    _('Vui lòng tải lên hình ảnh có dung lượng dưới %s. Dung lượng hiện tại %s') % (
+                        filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(logo._size)))
+        else:
+            raise forms.ValidationError(_('Không hỗ trợ kiểu file'))
+        return logo
 
-        title = cleaned_data.get('title')
-        artist = cleaned_data.get('artist')
-        try:
-            Song.objects.filter(artist=artist).filter(title=title)
-        except ObjectDoesNotExist:
-            return artist
-        raise forms.ValidationError('Bài hát đã tồn tại')
+    def clean_file(self):
+        cleaned_data = super(CreateSongForm, self).clean()
+        file = cleaned_data.get('file')
+        file_type = file.content_type.split('/')[0]
+        if file_type in settings.MUSIC_TYPES:
+            if file._size > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError(
+                    _('Vui lòng tải lên bài hát có dung lượng dưới %s. Dung lượng hiện tại %s') % (
+                        filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(file._size)))
+        else:
+            raise forms.ValidationError(_("Vui lòng tải lên file nhạc (.mp3)"))
+        return file
 
 
 class UpdateSongForm(forms.ModelForm):

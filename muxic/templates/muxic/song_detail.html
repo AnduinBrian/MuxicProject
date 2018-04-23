@@ -41,6 +41,7 @@
                                             <button type="submit" class="btn btn-default btn-sm">
                                                 <span class="glyphicon glyphicon-heart-empty"></span>
                                             </button>
+                                            <label>{{ song.favorite.all.count }}</label>
                                         </form>
                                     {% else %}
                                         <form action="{% url 'muxic:favorite' song.id %}" method="get"
@@ -55,7 +56,7 @@
                                         </form>
                                     {% endif %}
                                 {% else %}
-                                    <button type="submit" class="btn btn-default btn-sm" >
+                                    <button type="submit" class="btn btn-default btn-sm">
                                         <span class="glyphicon glyphicon-circle-arrow-up"><a
                                                 href="{% url 'muxic:login' %}">Favorite </a></span>
                                     </button>
@@ -64,7 +65,8 @@
                             <div>
                                 <ul style="margin-left: -30px">
                                     <li>Tên bài hát: {{ song.title }}</li>
-                                    <li>Thể loại: {{ song.genre }}</li>
+                                    <li>Thể loại: <a
+                                            href="{% url 'muxic:genre_filter' song.genre %}">{{ song.genre }}</a></li>
                                     <li>Ca sĩ: {{ song.artist }}</li>
                                     <li>Người đăng: <a
                                             href="{% url 'muxic:user' song.owner %}">{{ song.owner }}</a></li>
